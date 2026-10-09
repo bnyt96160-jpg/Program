@@ -4,12 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>کلودبات - پلتفرم ابری هوشمند و ماشین حساب سرویس</title>
+    <title>کلودبات - بستر ابری هوشمند و ماشین‌حساب سرور</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -39,381 +38,276 @@
 <body class="min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
 
     <header class="bg-cardBg/95 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40 px-4 py-3 shadow-lg">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
+        <div class="max-w-3xl mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-3 space-x-reverse">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-emerald-500 flex items-center justify-center shadow-md shadow-blue-500/20">
                     <i data-lucide="cloud-lightning" class="w-6 h-6 text-white"></i>
                 </div>
                 <div>
                     <h1 class="font-bold text-lg leading-tight text-white">کلودبات</h1>
-                    <span class="text-xs text-emerald-400 font-medium">سرویس ابری هوشمند و ماشین‌حساب سرور</span>
+                    <span class="text-xs text-emerald-400 font-medium">سرویس ابری هوشمند و ماشین‌حساب</span>
                 </div>
             </div>
-            <div class="flex items-center space-x-2 space-x-reverse">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    <span class="w-2 h-2 ml-1 bg-emerald-500 rounded-full animate-pulse"></span> آنلاین
-                </span>
-            </div>
+            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <span class="w-2 h-2 ml-1 bg-emerald-500 rounded-full animate-pulse"></span> آنلاین
+            </span>
         </div>
     </header>
 
-    <!-- Navigation Menu (Separate Tabs) -->
-    <nav class="bg-cardBg/80 border-b border-slate-800 px-2 py-3 overflow-x-auto shadow-inner">
-        <div class="max-w-4xl mx-auto flex space-x-2 space-x-reverse min-w-max">
-            <button onclick="switchTab('dashboard')" id="btn-dashboard" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-md smooth-transition flex items-center space-x-2 space-x-reverse">
-                <i data-lucide="layout-dashboard" class="w-4 h-4 ml-1"></i> داشبورد 📊
+    <nav class="bg-cardBg/80 border-b border-slate-800 px-4 py-3">
+        <div class="max-w-3xl mx-auto flex justify-center gap-2 flex-wrap">
+            <button onclick="switchTab('home')" id="btn-home" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-md smooth-transition flex items-center gap-1.5">
+                <i data-lucide="home" class="w-4 h-4"></i> خانه و محاسبه‌گر 🏠
             </button>
-            <button onclick="switchTab('calculator')" id="btn-calculator" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-2 space-x-reverse">
-                <i data-lucide="calculator" class="w-4 h-4 ml-1"></i> ماشین‌حساب سرور 🧮
+            <button onclick="switchTab('builder')" id="btn-builder" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center gap-1.5">
+                <i data-lucide="bot" class="w-4 h-4"></i> ساخت ربات و بازی 🤖
             </button>
-            <button onclick="switchTab('botbuilder')" id="btn-botbuilder" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-2 space-x-reverse">
-                <i data-lucide="bot" class="w-4 h-4 ml-1"></i> بخش ساخت ربات 🤖
+            <button onclick="switchTab('pricing')" id="btn-pricing" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center gap-1.5">
+                <i data-lucide="credit-card" class="w-4 h-4"></i> تعرفه و درگاه امن 💳
             </button>
-            <button onclick="switchTab('appbuilder')" id="btn-appbuilder" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-2 space-x-reverse">
-                <i data-lucide="code" class="w-4 h-4 ml-1"></i> ساخت برنامه و بازی ⚡
-            </button>
-            <button onclick="switchTab('pricing')" id="btn-pricing" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-2 space-x-reverse">
-                <i data-lucide="credit-card" class="w-4 h-4 ml-1"></i> تعرفه و درگاه امن 🔒
-            </button>
-            <button onclick="switchTab('support')" id="btn-support" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-2 space-x-reverse">
-                <i data-lucide="headset" class="w-4 h-4 ml-1"></i> چت پشتیبانی 💬
-            </button>
-            <button onclick="switchTab('admin')" id="btn-admin" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-2 space-x-reverse">
-                <i data-lucide="shield-check" class="w-4 h-4 ml-1"></i> بخش مدیریت 🛡️
+            <button onclick="switchTab('support')" id="btn-support" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center gap-1.5">
+                <i data-lucide="headset" class="w-4 h-4"></i> چت پشتیبانی 💬
             </button>
         </div>
     </nav>
 
-    <main class="max-w-4xl mx-auto p-4 flex-grow w-full space-y-6">
+    <main class="max-w-3xl mx-auto p-4 flex-grow w-full space-y-6">
 
-        <!-- 1. DASHBOARD SECTION -->
-        <section id="tab-dashboard" class="space-y-6">
+        <!-- 1. HOME / CALCULATOR SECTION (Two-section layout: Top & Bottom) -->
+        <section id="tab-home" class="space-y-6">
+            <!-- Top Hero Card -->
             <div class="bg-gradient-to-r from-blue-900/40 to-slate-900 border border-blue-500/20 rounded-2xl p-6 shadow-xl relative overflow-hidden">
-                <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-blue-500/10 rounded-full blur-2xl"></div>
-                <h2 class="text-xl font-bold text-white mb-2">خوش آمدید، کاربر عزیز! 👋</h2>
-                <p class="text-sm text-slate-300 leading-relaxed">
-                    سیستم با سرعت نور و بدون نیاز به فیلترشکن به سرورهای ابری متصل است. با بخش‌های مجزای سایت می‌توانید سرور محاسبه کنید، ربات بسازید و سفارش‌ها را پیگیری نمایید. 🚀✨
-                </p>
-                <div class="mt-4 flex flex-wrap gap-2 text-xs">
-                    <span class="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20 flex items-center"><i data-lucide="shield-check" class="w-3.5 h-3.5 ml-1"></i> ضمانت بازگشت وجه ۷ روزه</span>
-                    <span class="bg-blue-500/10 text-blue-400 px-3 py-1 rounded-full border border-blue-500/20 flex items-center"><i data-lucide="zap" class="w-3.5 h-3.5 ml-1"></i> سرعت لود فوق‌العاده</span>
-                    <span class="bg-amber-500/10 text-amber-400 px-3.5 py-1 rounded-full border border-amber-500/20 flex items-center"><i data-lucide="lock" class="w-3.5 h-3.5 ml-1"></i> پرداخت کاملاً امن</span>
-                </div>
-            </div>
-
-            <!-- Stats Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-cardBg border border-slate-800 p-5 rounded-xl shadow-md">
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="text-slate-400 text-sm">ربات‌های فعال</span>
-                        <i data-lucide="activity" class="w-5 h-5 text-blue-500"></i>
-                    </div>
-                    <div class="text-2xl font-bold text-white" id="stat-bots">۰</div>
-                </div>
-                <div class="bg-cardBg border border-slate-800 p-5 rounded-xl shadow-md">
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="text-slate-400 text-sm">سفارش‌های ثبت شده</span>
-                        <i data-lucide="calculator" class="w-5 h-5 text-emerald-500"></i>
-                    </div>
-                    <div class="text-2xl font-bold text-white" id="stat-apps">۰</div>
-                </div>
-                <div class="bg-cardBg border border-slate-800 p-5 rounded-xl shadow-md">
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="text-slate-400 text-sm">تراکنش‌های تایید شده</span>
-                        <i data-lucide="receipt" class="w-5 h-5 text-amber-500"></i>
-                    </div>
-                    <div class="text-2xl font-bold text-white" id="stat-receipts">۰</div>
-                </div>
-            </div>
-
-            <!-- Testimonials -->
-            <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-                <h3 class="text-lg font-bold text-white flex items-center">
-                    <i data-lucide="star" class="w-5 h-5 ml-2 text-amber-400"></i> نظرات مشتریان راضی (اعتماد شما، اعتبار ماست) 🌟
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl space-y-2">
-                        <div class="flex items-center justify-between">
-                            <span class="font-bold text-sm text-white">رضا مهدوی</span>
-                            <div class="flex text-amber-400"><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i></div>
-                        </div>
-                        <p class="text-xs text-slate-300">«ماشین‌حساب قیمت‌گذاری سرورتون بی‌نظیره؛ قیمت پارس‌پک رو استخراج کرد و خیلی شفاف حساب کرد.» 👍✨</p>
-                    </div>
-                    <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl space-y-2">
-                        <div class="flex items-center justify-between">
-                            <span class="font-bold text-sm text-white">سارا اکبری</span>
-                            <div class="flex text-amber-400"><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i></div>
-                        </div>
-                        <p class="text-xs text-slate-300">«بخش پشتیبانی و سرعت لود برنامه فوق‌العاده‌ست. خیلی راحت تونستم سفارشم رو ثبت کنم.» 🚀🔥</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. CALCULATOR SECTION -->
-        <section id="tab-calculator" class="hidden space-y-6">
-            <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
-                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                    <h2 class="text-lg font-bold text-white flex items-center">
-                        <i data-lucide="calculator" class="w-5 h-5 ml-2 text-emerald-400"></i> ماشین‌حساب هوشمند قیمت سرور 🧮
-                    </h2>
-                    <span class="text-xs bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20">آنلاین و دقیق</span>
-                </div>
+                <h2 class="text-xl font-bold text-white mb-2">سیستم هوشمند ابری کلودبات 🚀</h2>
                 <p class="text-xs text-slate-300 leading-relaxed">
-                    مشخصات سرور را انتخاب کنید تا نرخ از پارس‌پک محاسبه شده و سود خدمات به‌صورت خودکار اعمال شود (زیر ۱ میلیون تومان: ۵۰۰ هزار تومان سود؛ بالای ۱ میلیون تومان: ۱ میلیون تومان سود). ⚙️💡
+                    با استفاده از ماشین‌حساب زیر، مشخصات سرور خود را انتخاب کنید تا قیمت دقیق از پارس‌پک محاسبه شده و سود خدمات به‌صورت خودکار اعمال گردد.
                 </p>
+            </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Bottom Calculator Card -->
+            <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i data-lucide="calculator" class="w-5 h-5 text-emerald-400"></i> ماشین‌حساب قیمت سرور ابری 🧮
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                     <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-2">انتخاب میزان رم (RAM):</label>
-                        <select id="calc-ram" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-xs focus:outline-none focus:border-emerald-500">
-                            <option value="450000">سرور اقتصادی - رم ۱ گیگابایت (پایه)</option>
+                        <label class="block font-medium text-slate-300 mb-2">انتخاب رم سرور (RAM):</label>
+                        <select id="calc-ram" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500">
+                            <option value="450000">سرور اقتصادی - رم ۱ گیگابایت</option>
                             <option value="850000" selected>سرور استاندارد - رم ۲ گیگابایت (پیشنهادی)</option>
                             <option value="1400000">سرور حرفه‌ای - رم ۴ گیگابایت</option>
                             <option value="2600000">سرور سازمانی - رم ۸ گیگابایت</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-2">نوع هارد و فضای ذخیره‌سازی:</label>
-                        <select id="calc-storage" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-xs focus:outline-none focus:border-emerald-500">
-                            <option value="0">هارد NVMe استاندارد (بدون هزینه اضافی)</option>
+                        <label class="block font-medium text-slate-300 mb-2">فضای ذخیره‌سازی (هارد):</label>
+                        <select id="calc-storage" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500">
+                            <option value="0">هارد NVMe استاندارد</option>
                             <option value="200000">هارد پرسرعت NVMe پلاس (+۲۰۰ هزار)</option>
                             <option value="500000">هارد فوق حرفه‌ای SSD Pro (+۵۰۰ هزار)</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-3">
-                    <div class="flex justify-between items-center text-xs text-slate-400">
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex gap-2">
+                    <input type="text" id="calc-coupon" placeholder="کد تخفیف (مثلاً CLOUD10)" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white uppercase focus:outline-none focus:border-emerald-500">
+                    <button onclick="applyCoupon()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap">اعمال تخفیف 🎟️</button>
+                </div>
+                <div id="coupon-msg" class="text-xs text-emerald-400 hidden">کد تخفیف اعمال شد! 🎉</div>
+
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-3 text-xs">
+                    <div class="flex justify-between items-center text-slate-400">
                         <span>هزینه پایه پارس‌پک:</span>
                         <span id="calc-base-price" class="font-mono text-white">۰ تومان</span>
                     </div>
-                    <div class="flex justify-between items-center text-xs text-slate-400">
+                    <div class="flex justify-between items-center text-slate-400">
                         <span>سود خدمات (اتوماتیک):</span>
                         <span id="calc-service-fee" class="font-mono text-emerald-400">۰ تومان</span>
                     </div>
+                    <div id="discount-row" class="hidden justify-between items-center text-amber-400">
+                        <span>تخفیف:</span>
+                        <span id="calc-discount-val" class="font-mono">-۰ تومان</span>
+                    </div>
                     <div class="border-t border-slate-800 pt-3 flex justify-between items-center">
                         <span class="text-sm font-bold text-white">مبلغ نهایی قابل پرداخت:</span>
-                        <span id="calc-final-price" class="text-xl font-bold font-mono text-emerald-400">۰ تومان</span>
+                        <span id="calc-final-price" class="text-lg font-bold font-mono text-emerald-400">۰ تومان</span>
                     </div>
                 </div>
 
-                <button onclick="orderCalculatedServer()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl shadow-lg smooth-transition flex items-center justify-center text-sm">
+                <button onclick="orderCalculatedServer()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl shadow-lg smooth-transition flex items-center justify-center text-xs">
                     <i data-lucide="shopping-cart" class="w-4 h-4 ml-2"></i> ثبت سفارش و انتقال به درگاه پرداخت امن 🔒
                 </button>
             </div>
         </section>
 
-        <!-- 3. BOT BUILDER SECTION -->
-        <section id="tab-botbuilder" class="hidden space-y-4">
+        <!-- 2. BOT & GAME BUILDER SECTION -->
+        <section id="tab-builder" class="hidden space-y-6">
+            <!-- Bot Builder Card -->
             <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-                <div class="border-b border-slate-800 pb-3">
-                    <h2 class="text-lg font-bold text-white flex items-center">
-                        <i data-lucide="bot" class="w-5 h-5 ml-2 text-blue-500"></i> بخش ساخت ربات هوشمند ابری 🤖
-                    </h2>
-                </div>
-                <p class="text-xs text-slate-400">ربات خود را در بستر ابری کلودبات راه‌اندازی و مدیریت کنید. 🌐</p>
-                
-                <div class="space-y-4">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i data-lucide="bot" class="w-5 h-5 text-blue-500"></i> ساخت و راه‌اندازی ربات ابری 🤖
+                </h3>
+                <div class="space-y-3 text-xs">
                     <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-1">نام سرویس یا ربات</label>
-                        <input type="text" id="bot-name" placeholder="مثلاً ربات پشتیبان فروشگاه" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-xs focus:outline-none focus:border-blue-500">
+                        <label class="block font-medium text-slate-300 mb-1">نام سرویس ربات</label>
+                        <input type="text" id="bot-name" placeholder="مثلاً ربات پشتیبان" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-1">توکن دسترسی ابری</label>
-                        <input type="text" id="bot-token" placeholder="مثلاً 123456:ABC-DEF..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-xs focus:outline-none focus:border-blue-500 font-mono">
+                        <label class="block font-medium text-slate-300 mb-1">توکن دسترسی ربات:</label>
+                        <input type="text" id="bot-token" placeholder="مثلاً 123456789:ABCDefGhIJKlmNoPQRsTUVwxyZ" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono focus:outline-none focus:border-blue-500">
+                        <p class="text-[10px] text-amber-400 mt-1">💡 راهنما: توکن ربات خود را از ربات رسمی تلگرام یعنی <b class="font-mono">@BotFather</b> دریافت کنید.</p>
                     </div>
-                    <button onclick="saveBot()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl text-xs shadow-lg smooth-transition flex items-center justify-center">
+                    <button onclick="saveBot()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl shadow-lg smooth-transition flex items-center justify-center">
                         <i data-lucide="plus-circle" class="w-4 h-4 ml-2"></i> ثبت و راه‌اندازی ربات 🚀
                     </button>
                 </div>
                 <div id="bot-success-msg" class="hidden p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-xs">
-                    سرویس ربات شما با موفقیت در بستر ابری ذخیره و فعال شد! ✨
+                    ربات شما با موفقیت در بستر ابری ثبت شد! ✨
                 </div>
             </div>
-        </section>
 
-        <!-- 4. APP & GAME BUILDER SECTION -->
-        <section id="tab-appbuilder" class="hidden space-y-4">
+            <!-- Game & App Builder Card -->
             <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-                <div class="border-b border-slate-800 pb-3">
-                    <h2 class="text-lg font-bold text-white flex items-center">
-                        <i data-lucide="code" class="w-5 h-5 ml-2 text-emerald-500"></i> بخش ساخت برنامه و مینی‌بازی ابری ⚡
-                    </h2>
-                </div>
-                <p class="text-xs text-slate-400">قالب مورد نظر خود را انتخاب کنید تا با سرعت نور خروجی آماده شود. 🎮📱</p>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div onclick="selectAppTemplate('game')" id="tpl-game" class="cursor-pointer border border-emerald-500 bg-slate-900/50 p-4 rounded-xl smooth-transition">
-                        <div class="font-bold text-white text-sm mb-1 flex items-center"><i data-lucide="gamepad-2" class="w-4 h-4 ml-1 text-emerald-400"></i> مینی‌بازی کلیکی سرعت</div>
-                        <p class="text-xs text-slate-400">یک بازی سرگرم‌کننده و امتیازی سریع.</p>
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i data-lucide="gamepad-2" class="w-5 h-5 text-emerald-400"></i> ساخت مینی‌بازی و اپلیکیشن ابری ⚡
+                </h3>
+                <p class="text-xs text-slate-400">قالب مورد نظر را انتخاب کنید تا با سرعت نور آماده شود.</p>
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                    <div onclick="selectAppTemplate('game')" id="tpl-game" class="cursor-pointer border border-emerald-500 bg-slate-900 p-3 rounded-xl text-center">
+                        <div class="font-bold text-white mb-1">مینی‌بازی امتیازی 🎮</div>
+                        <span class="text-[10px] text-slate-400">سرگرم‌کننده و سریع</span>
                     </div>
-                    <div onclick="selectAppTemplate('app')" id="tpl-app" class="cursor-pointer border border-slate-700 hover:border-blue-500 bg-slate-900/50 p-4 rounded-xl smooth-transition">
-                        <div class="font-bold text-white text-sm mb-1 flex items-center"><i data-lucide="layout" class="w-4 h-4 ml-1 text-blue-400"></i> اپلیکیشن خدماتی</div>
-                        <p class="text-xs text-slate-400">پنل مدیریت ابزارهای کاربردی.</p>
+                    <div onclick="selectAppTemplate('app')" id="tpl-app" class="cursor-pointer border border-slate-700 bg-slate-900 p-3 rounded-xl text-center">
+                        <div class="font-bold text-white mb-1">اپلیکیشن خدماتی 📱</div>
+                        <span class="text-[10px] text-slate-400">پنل ابزارهای کاربردی</span>
                     </div>
                 </div>
-
-                <div class="space-y-4 pt-2">
-                    <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-1">عنوان برنامه / بازی</label>
-                        <input type="text" id="app-title-input" placeholder="مثلاً اپلیکیشن مدیریت من" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-xs focus:outline-none focus:border-emerald-500">
-                    </div>
-                    <button onclick="buildAppCode()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-xs shadow-lg smooth-transition flex items-center justify-center">
-                        <i data-lucide="zap" class="w-4 h-4 ml-2"></i> ساخت و تولید کد برنامه 🚀
+                <div class="space-y-3 text-xs">
+                    <input type="text" id="app-title-input" placeholder="عنوان برنامه یا بازی..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500">
+                    <button onclick="buildAppCode()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl shadow-lg smooth-transition flex items-center justify-center">
+                        <i data-lucide="zap" class="w-4 h-4 ml-2"></i> تولید و ساخت برنامه 🚀
                     </button>
                 </div>
-
-                <div id="app-result-box" class="hidden p-4 bg-slate-900 border border-slate-700 rounded-xl space-y-2">
-                    <div class="text-sm font-bold text-emerald-400">برنامه شما آماده شد! 🎉</div>
-                    <div id="app-preview-area" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg font-mono overflow-x-auto"></div>
-                </div>
+                <div id="app-result-box" class="hidden p-3 bg-slate-900 border border-slate-700 rounded-xl text-xs text-emerald-400 font-mono"></div>
             </div>
         </section>
 
-        <!-- 5. PRICING & TRUST SECTION -->
+        <!-- 3. PRICING SECTION -->
         <section id="tab-pricing" class="hidden space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-cardBg border border-slate-800 p-6 rounded-2xl shadow-xl flex flex-col justify-between">
+                <div class="bg-cardBg border border-slate-800 p-6 rounded-2xl shadow-xl flex flex-col justify-between text-xs">
                     <div>
-                        <span class="text-xs font-semibold text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full">استاندارد ابری</span>
-                        <h3 class="text-xl font-bold text-white mt-3">اشتراک ماهانه سرویس</h3>
-                        <div class="text-2xl font-bold text-emerald-400 my-3">۹۹,۰۰۰ تومان</div>
-                        <p class="text-xs text-slate-400 leading-relaxed">دسترسی کامل به موتور هوشمند ابری و خروجی نامحدود بدون قطعی. 🌐</p>
+                        <span class="bg-blue-500/10 text-blue-400 px-3 py-1 rounded-full font-semibold">اشتراک ماهانه</span>
+                        <div class="text-xl font-bold text-white mt-3">۹۹,۰۰۰ تومان</div>
+                        <p class="text-slate-400 my-2">دسترسی کامل به موتور هوشمند ابری.</p>
                     </div>
-                    <button onclick="openBankGateway('اشتراک ماهانه سرویس', '۹۹,۰۰۰ تومان')" class="mt-6 w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-xs shadow-md flex items-center justify-center">
-                        <i data-lucide="lock" class="w-4 h-4 ml-2"></i> پرداخت امن بانکی 🔒
-                    </button>
+                    <button onclick="openBankGateway('اشتراک ماهانه', '۹۹,۰۰۰ تومان')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl mt-4">پرداخت امن بانکی 🔒</button>
                 </div>
-                <div class="bg-cardBg border border-slate-800 p-6 rounded-2xl shadow-xl flex flex-col justify-between border-blue-500/50">
+                <div class="bg-cardBg border border-blue-500/50 p-6 rounded-2xl shadow-xl flex flex-col justify-between text-xs">
                     <div>
-                        <span class="text-xs font-semibold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full">پیشنهاد ویژه VIP</span>
-                        <h3 class="text-xl font-bold text-white mt-3">اشتراک نامحدود دائم</h3>
-                        <div class="text-2xl font-bold text-emerald-400 my-3">۱۹۹,۰۰۰ تومان</div>
-                        <p class="text-xs text-slate-400 leading-relaxed">دسترسی مادام‌العمر به آپدیت‌ها، پشتیبانی ویژه و سیستم مدیریت سفارش‌ها. ⭐</p>
+                        <span class="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full font-semibold">اشتراک دائمی VIP</span>
+                        <div class="text-xl font-bold text-emerald-400 mt-3">۱۹۹,۰۰۰ تومان</div>
+                        <p class="text-slate-400 my-2">دسترسی مادام‌العمر و پشتیبانی ویژه.</p>
                     </div>
-                    <button onclick="openBankGateway('اشتراک نامحدود دائم', '۱۹۹,۰۰۰ تومان')" class="mt-6 w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl text-xs shadow-md flex items-center justify-center">
-                        <i data-lucide="shield" class="w-4 h-4 ml-2"></i> پرداخت امن بانکی 🔒
-                    </button>
+                    <button onclick="openBankGateway('اشتراک دائمی VIP', '۱۹۹,۰۰۰ تومان')" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl mt-4">پرداخت امن بانکی 🔒</button>
                 </div>
-            </div>
-
-            <!-- Trust Badges Bar -->
-            <div class="bg-cardBg/60 border border-slate-800 p-4 rounded-xl flex flex-wrap justify-around items-center text-xs text-slate-300 text-center gap-4">
-                <div class="flex items-center space-x-1.5 space-x-reverse"><i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i><span>درگاه امن بانکی</span></div>
-                <div class="flex items-center space-x-1.5 space-x-reverse"><i data-lucide="refresh-cw" class="w-4 h-4 text-blue-400"></i><span>ضمانت بازگشت وجه ۷ روزه</span></div>
-                <div class="flex items-center space-x-1.5 space-x-reverse"><i data-lucide="headphones" class="w-4 h-4 text-amber-400"></i><span>پشتیبانی ۲۴ ساعته</span></div>
             </div>
         </section>
 
-        <!-- 6. SUPPORT CHAT SECTION -->
+        <!-- 4. SUPPORT CHAT SECTION -->
         <section id="tab-support" class="hidden space-y-4">
             <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-                <div class="border-b border-slate-800 pb-3">
-                    <h2 class="text-lg font-bold text-white flex items-center">
-                        <i data-lucide="headset" class="w-5 h-5 ml-2 text-amber-500"></i> بخش چت آنلاین با پشتیبانی کلودبات 💬
-                    </h2>
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i data-lucide="headset" class="w-5 h-5 text-amber-500"></i> چت آنلاین با پشتیبانی 💬
+                </h3>
+                <div id="chat-messages" class="h-44 bg-slate-900 border border-slate-800 rounded-xl p-3 overflow-y-auto space-y-2 text-xs">
+                    <div class="p-2.5 bg-slate-800 rounded-xl text-slate-300 w-fit">سلام! چطور کمکتان کنیم؟ 😊</div>
                 </div>
-                <p class="text-xs text-slate-400">سوال یا مشکلی دارید؟ پیام خود را بنویسید تا کارشناسان پاسخ دهند. 🎧</p>
-                
-                <div id="chat-messages" class="h-48 bg-slate-900 border border-slate-800 rounded-xl p-4 overflow-y-auto space-y-3 text-xs">
-                    <div class="p-3 bg-slate-800 rounded-xl text-slate-300 w-fit max-w-[80%]">
-                        سلام! چطور می‌توانیم در محاسبه سرور یا خرید اشتراک کمکتان کنیم؟ 😊
-                    </div>
-                </div>
-
-                <div class="flex gap-2">
-                    <input type="text" id="chat-input" placeholder="پیام خود را بنویسید..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500">
-                    <button onclick="sendSupportMessage()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl text-xs font-bold flex items-center"><i data-lucide="send" class="w-3.5 h-3.5 ml-1"></i> ارسال</button>
+                <div class="flex gap-2 text-xs">
+                    <input type="text" id="chat-input" placeholder="پیام خود را بنویسید..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none">
+                    <button onclick="sendSupportMessage()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 rounded-xl font-bold">ارسال</button>
                 </div>
             </div>
         </section>
 
-        <!-- 7. ADMIN SECTION -->
+        <!-- 5. PROTECTED ADMIN PANEL SECTION (Hidden from public) -->
         <section id="tab-admin" class="hidden space-y-4">
             <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                    <h2 class="text-lg font-bold text-white flex items-center">
-                        <i data-lucide="shield-check" class="w-5 h-5 ml-2 text-emerald-500"></i> بخش مدیریت و بررسی سفارش‌ها 🛡️
-                    </h2>
-                    <button onclick="loadAdminData()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg flex items-center">
-                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5 ml-1"></i> به‌روزرسانی
-                    </button>
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i data-lucide="shield-check" class="w-5 h-5 text-emerald-500"></i> پنل مدیریت اختصاصی 🛡️
+                    </h3>
+                    <button onclick="switchTab('home')" class="text-xs bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg">خروج از ادمین 🚪</button>
                 </div>
-                <p class="text-xs text-slate-400">تمام سفارش‌ها و فیش‌های واریزی کاربران به‌صورت آنی در این بخش ذخیره و نمایش داده می‌شوند. 📋</p>
-                
-                <div id="admin-receipts-list" class="space-y-3">
-                    <!-- Receipts populated via JS -->
+                <p class="text-xs text-slate-400">تمام سفارش‌ها، فیش‌های واریزی و مشخصات کامل خریدها در اینجا ذخیره شده‌اند.</p>
+                <div id="admin-receipts-list" class="space-y-3 text-xs">
+                    <!-- Loaded dynamically -->
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Bank Gateway Modal (With Alireza Norouzi Card: 6219861858158784) -->
+    <!-- Bank Gateway Modal (Alireza Norouzi Card: 6219861858158784) -->
     <div id="bank-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl relative">
+        <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl p-6 space-y-4 text-xs shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <div class="flex items-center space-x-2 space-x-reverse">
-                    <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400"></i>
-                    <span class="font-bold text-sm text-white">درگاه پرداخت و کارت به کارت امن</span>
-                </div>
+                <span class="font-bold text-sm text-white">درگاه پرداخت کارت به کارت امن</span>
                 <button onclick="closeBankGateway()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
-
-            <div class="bg-blue-900/20 border border-blue-500/20 p-3 rounded-xl flex justify-between items-center text-xs">
+            <div class="bg-blue-900/20 border border-blue-500/20 p-3 rounded-xl flex justify-between items-center">
                 <div>
                     <div class="text-slate-400">مبلغ قابل پرداخت:</div>
                     <div id="gateway-price" class="font-bold text-emerald-400 text-sm mt-0.5">۰ تومان</div>
                 </div>
-                <div id="gateway-plan-title" class="text-slate-300 font-medium text-left">سرویس ابری</div>
+                <div id="gateway-plan-title" class="text-slate-300 font-medium">سرویس</div>
             </div>
-
-            <!-- Card Info Box -->
-            <div class="bg-slate-950 border border-emerald-500/30 p-4 rounded-xl space-y-2 text-xs">
-                <div class="text-slate-400">لطفاً مبلغ فوق را به شماره کارت زیر واریز نمایید:</div>
-                <div class="bg-slate-900 p-3 rounded-lg border border-slate-800 flex justify-between items-center">
-                    <span class="font-mono text-emerald-400 font-bold text-sm tracking-wider">6219 8618 5815 8784</span>
-                    <span class="text-slate-400">بانک ملت/صادرات</span>
-                </div>
-                <div class="text-slate-300 font-medium">به نام: <span class="text-white font-bold">علیرضا نوروزی</span></div>
+            <div class="bg-slate-950 border border-emerald-500/30 p-4 rounded-xl space-y-2">
+                <div class="text-slate-400">مبلغ را به شماره کارت زیر واریز کنید:</div>
+                <div class="bg-slate-900 p-3 rounded-lg font-mono text-emerald-400 font-bold text-sm text-center tracking-wider">6219 8618 5815 8784</div>
+                <div class="text-slate-300 text-center">به نام: <span class="text-white font-bold">علیرضا نوروزی</span></div>
             </div>
-
-            <!-- Receipt Submission Form -->
-            <div class="space-y-3 text-xs">
-                <div>
-                    <label class="block text-slate-400 mb-1">کد پیگیری یا شماره فیش واریزی:</label>
-                    <input type="text" id="receipt-code-input" placeholder="مثلاً 123456 یا چهار رقم آخر کارت" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-center">
-                </div>
-                <div>
-                    <label class="block text-slate-400 mb-1">نام پرداخت‌کننده:</label>
-                    <input type="text" id="payer-name-input" placeholder="نام خود را وارد کنید" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-center">
-                </div>
+            <div class="space-y-3">
+                <input type="text" id="receipt-code-input" placeholder="کد پیگیری یا چهار رقم آخر کارت واریزکننده" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-center font-mono">
+                <input type="text" id="payer-name-input" placeholder="نام خود را وارد کنید..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-center">
             </div>
-
-            <div class="pt-2 flex gap-2">
-                <button onclick="submitReceipt()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl text-xs shadow-lg flex items-center justify-center">
-                    <i data-lucide="check-circle" class="w-4 h-4 ml-1"></i> ثبت فیش واریزی و اتمام سفارش ✅
-                </button>
-                <button onclick="closeBankGateway()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2.5 rounded-xl text-xs">انصراف</button>
+            <div class="flex gap-2 pt-2">
+                <button onclick="submitReceipt()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl shadow-lg">ثبت فیش واریزی و اتمام سفارش ✅</button>
+                <button onclick="closeBankGateway()" class="bg-slate-800 text-slate-300 px-4 py-2.5 rounded-xl">انصراف</button>
             </div>
         </div>
     </div>
 
-    <!-- Custom Modal for Alerts -->
+    <!-- Admin PIN Modal (Secret Entry) -->
+    <div id="admin-pin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 w-full max-w-xs rounded-2xl p-5 space-y-4 text-center text-xs shadow-2xl">
+            <div class="w-10 h-10 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto">
+                <i data-lucide="shield-check" class="w-5 h-5"></i>
+            </div>
+            <div class="font-bold text-white text-sm">ورود به بخش مدیریت</div>
+            <p class="text-slate-400">رمز عبور ادمین را وارد کنید:</p>
+            <input type="password" id="admin-pin-input" placeholder="رمز عبور..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-center font-mono">
+            <div class="flex gap-2">
+                <button onclick="verifyAdminPin()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-xl">ورود 🔓</button>
+                <button onclick="closeAdminPinModal()" class="bg-slate-800 text-slate-300 px-3 py-2 rounded-xl">بستن</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Alert Modal -->
     <div id="custom-alert-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700 w-full max-w-sm rounded-2xl p-6 space-y-4 text-center shadow-2xl">
-            <div id="custom-alert-icon" class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-2">
-                <i data-lucide="check-circle" class="w-6 h-6"></i>
-            </div>
-            <p id="custom-alert-text" class="text-xs text-slate-200 leading-relaxed font-medium">پیام سیستم</p>
-            <button onclick="closeCustomAlert()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-xs">متوجه شدم 👍</button>
+        <div class="bg-slate-900 border border-slate-700 w-full max-w-xs rounded-2xl p-5 space-y-3 text-center text-xs shadow-2xl">
+            <p id="custom-alert-text" class="text-slate-200 font-medium"></p>
+            <button onclick="closeCustomAlert()" class="w-full bg-blue-600 text-white font-bold py-2 rounded-xl">متوجه شدم 👍</button>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-cardBg/50 border-t border-slate-800 py-4 px-4 text-center text-xs text-slate-500">
-        کلودبات - بستر امن ابری و ماشین‌حساب قیمت‌گذاری سرور. سرعت بالا و بدون نیاز به فیلترشکن. 🛡️✨
+    <!-- Footer with Hidden Admin Trigger -->
+    <footer class="bg-cardBg/50 border-t border-slate-800 py-3 px-4 text-center text-[11px] text-slate-500 flex justify-between items-center max-w-3xl mx-auto w-full">
+        <span>کلودبات - بستر امن ابری و ماشین‌حساب 🛡️</span>
+        <button onclick="openAdminPinModal()" class="text-slate-600 hover:text-slate-400 text-[10px] flex items-center gap-1">
+            <i data-lucide="lock" class="w-3 h-3"></i> ادمین
+        </button>
     </footer>
 
     <script>
@@ -423,7 +317,6 @@
             document.getElementById('custom-alert-text').innerText = text;
             document.getElementById('custom-alert-modal').classList.remove('hidden');
         }
-
         function closeCustomAlert() {
             document.getElementById('custom-alert-modal').classList.add('hidden');
         }
@@ -435,92 +328,96 @@
                 btn.classList.add('text-slate-300', 'hover:text-white', 'hover:bg-slate-800');
             });
 
-            const targetSection = document.getElementById('tab-' + tabId);
-            if(targetSection) targetSection.classList.remove('hidden');
+            const target = document.getElementById('tab-' + tabId);
+            if(target) target.classList.remove('hidden');
 
-            const activeBtn = document.getElementById('btn-' + tabId);
-            if(activeBtn) {
-                activeBtn.classList.remove('text-slate-300', 'hover:text-white', 'hover:bg-slate-800');
-                activeBtn.classList.add('bg-blue-600', 'text-white', 'shadow-md');
+            const btn = document.getElementById('btn-' + tabId);
+            if(btn) {
+                btn.classList.remove('text-slate-300', 'hover:text-white', 'hover:bg-slate-800');
+                btn.classList.add('bg-blue-600', 'text-white', 'shadow-md');
             }
-
-            if (tabId === 'admin') {
-                loadAdminData();
-            }
-            updateStats();
+            if(tabId === 'admin') loadAdminData();
         }
 
-        // Smart Calculator Profit Rule: < 1,000,000 -> +500,000, >= 1,000,000 -> +1,000,000
+        let discountMultiplier = 1;
+
         function updateCalculator() {
             try {
-                const ramVal = parseInt(document.getElementById('calc-ram').value) || 0;
-                const storageVal = parseInt(document.getElementById('calc-storage').value) || 0;
-                const basePrice = ramVal + storageVal;
+                const ram = parseInt(document.getElementById('calc-ram').value) || 0;
+                const storage = parseInt(document.getElementById('calc-storage').value) || 0;
+                const base = ram + storage;
 
-                let serviceFee = 500000;
-                if (basePrice >= 1000000) {
-                    serviceFee = 1000000;
+                let fee = base < 1000000 ? 500000 : 1000000;
+                let final = base + fee;
+                let disc = 0;
+
+                if (discountMultiplier < 1) {
+                    disc = Math.round(final * (1 - discountMultiplier));
+                    final = Math.round(final * discountMultiplier);
+                    document.getElementById('discount-row').style.display = 'flex';
+                    document.getElementById('calc-discount-val').innerText = '-' + disc.toLocaleString('fa-IR') + ' تومان';
+                } else {
+                    document.getElementById('discount-row').style.display = 'none';
                 }
 
-                const finalPrice = basePrice + serviceFee;
+                document.getElementById('calc-base-price').innerText = base.toLocaleString('fa-IR') + ' تومان';
+                document.getElementById('calc-service-fee').innerText = fee.toLocaleString('fa-IR') + ' تومان';
+                document.getElementById('calc-final-price').innerText = final.toLocaleString('fa-IR') + ' تومان';
+            } catch(e) { console.error(e); }
+        }
 
-                document.getElementById('calc-base-price').innerText = basePrice.toLocaleString('fa-IR') + ' تومان';
-                document.getElementById('calc-service-fee').innerText = serviceFee.toLocaleString('fa-IR') + ' تومان';
-                document.getElementById('calc-final-price').innerText = finalPrice.toLocaleString('fa-IR') + ' تومان';
-            } catch(e) {
-                console.error(e);
+        function applyCoupon() {
+            const val = document.getElementById('calc-coupon').value.trim().toUpperCase();
+            const msg = document.getElementById('coupon-msg');
+            if (val === 'CLOUD10') {
+                discountMultiplier = 0.9;
+                msg.classList.remove('hidden');
+                msg.innerText = 'کد تخفیف ۱۰٪ اعمال شد! 🎉';
+            } else {
+                discountMultiplier = 1;
+                msg.classList.remove('hidden');
+                msg.style.color = '#ef4444';
+                msg.innerText = 'کد تخفیف نامعتبر است! ❌';
             }
+            updateCalculator();
         }
 
         document.getElementById('calc-ram').addEventListener('change', updateCalculator);
         document.getElementById('calc-storage').addEventListener('change', updateCalculator);
         updateCalculator();
 
+        let currentPlanName = '';
+        let currentPlanPrice = '';
+        let serverDetailsMemo = '';
+
         function orderCalculatedServer() {
-            const finalPriceText = document.getElementById('calc-final-price').innerText;
+            const finalPrice = document.getElementById('calc-final-price').innerText;
             const ramText = document.getElementById('calc-ram').selectedOptions[0].text;
             const storageText = document.getElementById('calc-storage').selectedOptions[0].text;
-            
-            openBankGateway('سرور سفارشی (' + ramText + ' - ' + storageText + ')', finalPriceText);
+            serverDetailsMemo = `مشخصات: ${ramText} | ${storageText}`;
+            openBankGateway('سرور سفارشی (' + serverDetailsMemo + ')', finalPrice);
         }
 
-        function getStoredData(key) {
-            try {
-                return JSON.parse(localStorage.getItem(key)) || [];
-            } catch(e) {
-                return [];
-            }
+        function getStored(key) {
+            try { return JSON.parse(localStorage.getItem(key)) || []; } catch(e) { return []; }
         }
-
-        function setStoredData(key, data) {
+        function setStored(key, data) {
             localStorage.setItem(key, JSON.stringify(data));
-        }
-
-        function updateStats() {
-            const bots = getStoredData('cloud_bots');
-            const apps = getStoredData('cloud_apps');
-            const receipts = getStoredData('cloud_receipts');
-
-            document.getElementById('stat-bots').innerText = bots.length;
-            document.getElementById('stat-apps').innerText = apps.length;
-            document.getElementById('stat-receipts').innerText = receipts.length;
         }
 
         function saveBot() {
             const name = document.getElementById('bot-name').value.trim();
             const token = document.getElementById('bot-token').value.trim();
             if(!name || !token) {
-                showCustomAlert('لطفاً نام و توکن ربات را به درستی وارد کنید. ⚠️');
+                showCustomAlert('لطفاً نام و توکن ربات را کامل وارد کنید. ⚠️');
                 return;
             }
-            const bots = getStoredData('cloud_bots');
+            const bots = getStored('cloud_bots');
             bots.push({ name, token, date: new Date().toLocaleDateString('fa-IR') });
-            setStoredData('cloud_bots', bots);
-
+            setStored('cloud_bots', bots);
             document.getElementById('bot-success-msg').classList.remove('hidden');
             document.getElementById('bot-name').value = '';
             document.getElementById('bot-token').value = '';
-            updateStats();
             setTimeout(() => document.getElementById('bot-success-msg').classList.add('hidden'), 4000);
         }
 
@@ -532,105 +429,107 @@
         }
 
         function buildAppCode() {
-            const title = document.getElementById('app-title-input').value.trim() || 'برنامه ابری من';
-            const apps = getStoredData('cloud_apps');
+            const title = document.getElementById('app-title-input').value.trim() || 'برنامه من';
+            const apps = getStored('cloud_apps');
             apps.push({ title, type: selectedAppType, date: new Date().toLocaleDateString('fa-IR') });
-            setStoredData('cloud_apps', apps);
-
-            const resultBox = document.getElementById('app-result-box');
-            const previewArea = document.getElementById('app-preview-area');
-            resultBox.classList.remove('hidden');
-            previewArea.innerText = `[موفقیت] اپلیکیشن "${title}" (${selectedAppType}) با سرعت نور و بهینه آماده خروجی‌گیری شد! 🚀`;
-            updateStats();
+            setStored('cloud_apps', apps);
+            const res = document.getElementById('app-result-box');
+            res.classList.remove('hidden');
+            res.innerText = `[موفقیت] برنامه "${title}" با موفقیت ساخته شد! 🚀`;
         }
 
-        let currentPlanName = '';
-        let currentPlanPrice = '';
-
-        function openBankGateway(planName, price) {
-            currentPlanName = planName;
+        function openBankGateway(plan, price) {
+            currentPlanName = plan;
             currentPlanPrice = price;
-            document.getElementById('gateway-plan-title').innerText = planName;
+            document.getElementById('gateway-plan-title').innerText = plan;
             document.getElementById('gateway-price').innerText = price;
             document.getElementById('receipt-code-input').value = '';
             document.getElementById('payer-name-input').value = '';
             document.getElementById('bank-modal').classList.remove('hidden');
         }
-
         function closeBankGateway() {
             document.getElementById('bank-modal').classList.add('hidden');
         }
 
         function submitReceipt() {
-            const receiptCode = document.getElementById('receipt-code-input').value.trim();
-            const payerName = document.getElementById('payer-name-input').value.trim() || 'مشتری گرامی';
-
-            if(!receiptCode) {
-                showCustomAlert('لطفاً کد پیگیری یا شماره فیش واریزی را وارد کنید. ⚠️');
+            const code = document.getElementById('receipt-code-input').value.trim();
+            const name = document.getElementById('payer-name-input').value.trim() || 'مشتری گرامی';
+            if(!code) {
+                showCustomAlert('لطفاً کد پیگیری یا شماره فیش را وارد کنید. ⚠️');
                 return;
             }
-
-            const receipts = getStoredData('cloud_receipts');
-            const newReceipt = {
-                plan: currentPlanName + ' (' + currentPlanPrice + ')',
-                name: payerName,
-                code: 'TXN-' + receiptCode,
+            const receipts = getStored('cloud_receipts');
+            receipts.push({
+                plan: currentPlanName,
+                price: currentPlanPrice,
+                name: name,
+                code: 'TXN-' + code,
+                details: serverDetailsMemo || 'خرید اشتراک / سرویس ابری',
                 date: new Date().toLocaleDateString('fa-IR')
-            };
-            receipts.push(newReceipt);
-            setStoredData('cloud_receipts', receipts);
-
-            const apps = getStoredData('cloud_apps');
-            apps.push({ title: currentPlanName, type: 'خرید اشتراک / سرویس', date: new Date().toLocaleDateString('fa-IR') });
-            setStoredData('cloud_apps', apps);
-
+            });
+            setStored('cloud_receipts', receipts);
             closeBankGateway();
-            updateStats();
-            showCustomAlert('فیش واریزی با موفقیت ثبت شد و به پنل مدیریت ارسال گردید! 🎉✅');
-            switchTab('admin');
+            showCustomAlert('فیش شما ثبت شد و با تمام جزئیات به پنل مدیریت ارسال گردید! 🎉✅');
+        }
+
+        function openAdminPinModal() {
+            document.getElementById('admin-pin-input').value = '';
+            document.getElementById('admin-pin-modal').classList.remove('hidden');
+        }
+        function closeAdminPinModal() {
+            document.getElementById('admin-pin-modal').classList.add('hidden');
+        }
+        function verifyAdminPin() {
+            const pin = document.getElementById('admin-pin-input').value.trim();
+            if(pin === '1384' || pin === '1234') { // Admin password
+                closeAdminPinModal();
+                document.getElementById('tab-admin').classList.remove('hidden');
+                switchTab('admin');
+            } else {
+                showCustomAlert('رمز عبور ادمین اشتباه است! ❌');
+            }
+        }
+
+        function loadAdminData() {
+            const receipts = getStored('cloud_receipts');
+            const list = document.getElementById('admin-receipts-list');
+            if(receipts.length === 0) {
+                list.innerHTML = `<div class="p-4 bg-slate-900 border border-slate-800 rounded-xl text-center text-slate-400">هیچ سفارشی ثبت نشده است. 📭</div>`;
+                return;
+            }
+            let html = '';
+            receipts.forEach((item, idx) => {
+                html += `
+                    <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl space-y-2">
+                        <div class="flex justify-between items-center font-bold text-white">
+                            <span>#${idx+1} - نام: ${item.name}</span>
+                            <span class="text-emerald-400 font-mono">${item.price}</span>
+                        </div>
+                        <div class="text-slate-300">سرویس: <b class="text-white">${item.plan}</b></div>
+                        <div class="text-slate-400 text-[11px]">جزئیات: ${item.details || 'ندارد'}</div>
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-800 text-[11px] text-slate-400">
+                            <span>کد پیگیری: <strong class="text-amber-400 font-mono">${item.code}</strong></span>
+                            <span>تاریخ: ${item.date}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            list.innerHTML = html;
         }
 
         function sendSupportMessage() {
             const input = document.getElementById('chat-input');
-            const text = input.value.trim();
-            if(!text) return;
-
-            const chatContainer = document.getElementById('chat-messages');
-            chatContainer.innerHTML += `<div class="p-3 bg-blue-600/20 text-white rounded-xl w-fit max-w-[80%] mr-auto">${text}</div>`;
+            const txt = input.value.trim();
+            if(!txt) return;
+            const box = document.getElementById('chat-messages');
+            box.innerHTML += `<div class="p-2.5 bg-blue-600/20 text-white rounded-xl w-fit mr-auto">${txt}</div>`;
             input.value = '';
-
             setTimeout(() => {
-                chatContainer.innerHTML += `<div class="p-3 bg-slate-800 rounded-xl text-slate-300 w-fit max-w-[80%]">پیام شما دریافت شد؛ کارشناسان پشتیبانی به زودی پاسخ خواهند داد. 👍</div>`;
-                chatContainer.scrollTop = chatContainer.scrollHeight;
+                box.innerHTML += `<div class="p-2.5 bg-slate-800 rounded-xl text-slate-300 w-fit">پیام شما دریافت شد. به‌زودی پاسخ می‌دهیم! 👍</div>`;
+                box.scrollTop = box.scrollHeight;
             }, 1000);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
+            box.scrollTop = box.scrollHeight;
         }
-
-        function loadAdminData() {
-            const receipts = getStoredData('cloud_receipts');
-            const listContainer = document.getElementById('admin-receipts-list');
-            
-            if(receipts.length === 0) {
-                listContainer.innerHTML = `<div class="p-4 bg-slate-900 border border-slate-800 rounded-xl text-center text-slate-400 text-xs">هنوز هیچ تراکنشی ثبت نشده است. 📭</div>`;
-                return;
-            }
-
-            let html = '';
-            receipts.forEach((item) => {
-                html += `
-                    <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0">
-                        <div>
-                            <div class="text-sm font-bold text-white">${item.name} - <span class="text-emerald-400">${item.plan}</span></div>
-                            <div class="text-xs text-slate-400 mt-1">کد پیگیری: <span class="text-amber-400 font-mono">${item.code}</span> | تاریخ: ${item.date}</div>
-                        </div>
-                        <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs rounded-lg font-semibold">تایید شده ✅</span>
-                    </div>
-                `;
-            });
-            listContainer.innerHTML = html;
-        }
-
-        updateStats();
     </script>
 </body>
 </html>
