@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>کلودبات - پلتفرم هوشمند ابری و ساخت اپ</title>
-<!-- Tailwind CSS CDN - Lightning Fast -->
+<title>کلودبات - پلتفرم هوشمند ابری و مدیریت سرویس‌ها</title>
+<!-- Tailwind CSS CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -36,7 +36,7 @@ transition: all 0.2s ease-in-out;
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
 ​<!-- Header -->
-<header class="bg-cardBg/80 backdrop-blur-md border-b border-slate-800 sticky top-z-50 z-50 px-4 py-3 shadow-lg">
+<header class="bg-cardBg/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 px-4 py-3 shadow-lg">
 <div class="max-w-4xl mx-auto flex justify-between items-center">
 <div class="flex items-center space-x-3 space-x-reverse">
 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-emerald-500 flex items-center justify-center shadow-md shadow-blue-500/20">
@@ -44,12 +44,12 @@ transition: all 0.2s ease-in-out;
 </div>
 <div>
 <h1 class="font-bold text-lg leading-tight text-white">کلودبات</h1>
-<span class="text-xs text-emerald-400 font-medium">سرویس ابری و ابزارساز پیشرفته</span>
+<span class="text-xs text-emerald-400 font-medium">سرویس هوشمند ابری و ابزارساز</span>
 </div>
 </div>
 <div class="flex items-center space-x-2 space-x-reverse">
 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-<span class="w-2 h-2 mr-1 bg-emerald-500 rounded-full animate-pulse"></span> آنلاین
+<span class="w-2 h-2 ml-1 bg-emerald-500 rounded-full animate-pulse"></span> آنلاین
 </span>
 </div>
 </div>
@@ -61,16 +61,16 @@ transition: all 0.2s ease-in-out;
 <i data-lucide="layout-dashboard" class="w-4 h-4 ml-1"></i> داشبورد
 </button>
 <button onclick="switchTab('botbuilder')" id="btn-botbuilder" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-2 space-x-reverse">
-<i data-lucide="bot" class="w-4 h-4 ml-1"></i> ساخت بات
+<i data-lucide="bot" class="w-4 h-4 ml-1"></i> ساخت ربات
 </button>
 <button onclick="switchTab('appbuilder')" id="btn-appbuilder" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-2 space-x-reverse">
 <i data-lucide="code" class="w-4 h-4 ml-1"></i> ساخت برنامه/بازی ⚡
 </button>
 <button onclick="switchTab('pricing')" id="btn-pricing" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-2 space-x-reverse">
-<i data-lucide="credit-card" class="w-4 h-4 ml-1"></i> خرید اشتراک و فیش
+<i data-lucide="credit-card" class="w-4 h-4 ml-1"></i> تعرفه‌ها و فیش
 </button>
 <button onclick="switchTab('admin')" id="btn-admin" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-2 space-x-reverse">
-<i data-lucide="shield-check" class="w-4 h-4 ml-1"></i> مدیریت و سفارش‌ها
+<i data-lucide="shield-check" class="w-4 h-4 ml-1"></i> مدیریت سفارش‌ها
 </button>
 </div>
 </nav>
@@ -79,7 +79,7 @@ transition: all 0.2s ease-in-out;
 ​<!-- 1. Dashboard Tab -->
 <section id="tab-dashboard" class="space-y-6">
 <div class="bg-gradient-to-r from-blue-900/40 to-slate-900 border border-blue-500/20 rounded-2xl p-6 shadow-xl">
-<h2 class="text-xl font-bold text-white mb-2">خوش آمدید، مدیر عزیز! 👋</h2>
+<h2 class="text-xl font-bold text-white mb-2">خوش آمدید، کاربر گرامی! 👋</h2>
 <p class="text-sm text-slate-300 leading-relaxed">
 سیستم با سرعت نور به سرورهای ابری متصل است. از طریق تب‌های بالا می‌توانید ربات‌های هوشمند خود را مدیریت کنید یا اپلیکیشن و مینی‌بازی دلخواه خود را در چند ثانیه بسازید. 🚀
 </p>
@@ -112,12 +112,12 @@ transition: all 0.2s ease-in-out;
 <section id="tab-botbuilder" class="hidden space-y-4">
 <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl">
 <h2 class="text-lg font-bold text-white mb-4 flex items-center">
-<i data-lucide="bot" class="w-5 h-5 ml-2 text-blue-500"></i> ساخت و تنظیم ربات ابری
+<i data-lucide="bot" class="w-5 h-5 ml-2 text-blue-500"></i> ساخت و تنظیم سرویس ابری ربات
 </h2>
 <div class="space-y-4">
 <div>
-<label class="block text-sm font-medium text-slate-300 mb-1">نام ربات یا سرویس</label>
-<input type="text" id="bot-name" placeholder="مثلاً ربات پشتیبان کلود" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500">
+<label class="block text-sm font-medium text-slate-300 mb-1">نام سرویس یا ربات</label>
+<input type="text" id="bot-name" placeholder="مثلاً ربات هوشمند پشتیبان" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500">
 </div>
 <div>
 <label class="block text-sm font-medium text-slate-300 mb-1">توکن یا کلید دسترسی ابری</label>
@@ -128,19 +128,19 @@ transition: all 0.2s ease-in-out;
 </button>
 </div>
 <div id="bot-success-msg" class="hidden mt-4 p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-sm">
-ربات شما با موفقیت در بستر ابری ذخیره و فعال شد! ✨
+سرویس ربات شما با موفقیت در بستر ابری ذخیره و فعال شد! ✨
 </div>
 </div>
 </section>
-​<!-- 3. App/Game Builder Tab (NEW) -->
+​<!-- 3. App/Game Builder Tab -->
 <section id="tab-appbuilder" class="hidden space-y-4">
 <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl">
 <h2 class="text-lg font-bold text-white mb-2 flex items-center">
-<i data-lucide="code" class="w-5 h-5 ml-2 text-emerald-500"></i> بخش ساخت اپلیکیشن و مینی‌بازی
+<i data-lucide="code" class="w-5 h-5 ml-2 text-emerald-500"></i> بخش ساخت اپلیکیشن و مینی‌بازی ابری
 </h2>
-<p class="text-xs text-slate-400 mb-4">قالب مورد نظر خود را انتخاب کنید تا با سرعت نور کدهای آن آماده شود.</p>
+<p class="text-xs text-slate-400 mb-4">قالب مورد نظر خود را انتخاب کنید تا با سرعت نور کدهای آن آماده خروجی شود.</p>
 ​<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-<div onclick="selectAppTemplate('game')" id="tpl-game" class="cursor-pointer border border-slate-700 hover:border-emerald-500 bg-slate-900/50 p-4 rounded-xl smooth-transition">
+<div onclick="selectAppTemplate('game')" id="tpl-game" class="cursor-pointer border border-emerald-500 bg-slate-900/50 p-4 rounded-xl smooth-transition">
 <div class="font-bold text-white mb-1 flex items-center"><i data-lucide="gamepad-2" class="w-4 h-4 ml-1 text-emerald-400"></i> مینی‌بازی کلیکی سرعت</div>
 <p class="text-xs text-slate-400">یک بازی سرگرم‌کننده و امتیازی سریع.</p>
 </div>
@@ -172,7 +172,7 @@ transition: all 0.2s ease-in-out;
 <span class="text-xs font-semibold text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full">استاندارد ابری</span>
 <h3 class="text-xl font-bold text-white mt-3">اشتراک ماهانه سرویس</h3>
 <div class="text-2xl font-bold text-emerald-400 my-3">۹۹,۰۰۰ تومان</div>
-<p class="text-xs text-slate-400 leading-relaxed">دسترسی کامل به موتور هوشمند، ربات‌ساز و خروجی نامحدود ابری بدون قطعی.</p>
+<p class="text-xs text-slate-400 leading-relaxed">دسترسی کامل به موتور هوشمند ابری و خروجی نامحدود بدون قطعی.</p>
 </div>
 <button onclick="selectPlan('اشتراک ماهانه سرویس', '۹۹,۰۰۰ تومان')" class="mt-6 w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-sm shadow-md">انتخاب این طرح</button>
 </div>
@@ -181,7 +181,7 @@ transition: all 0.2s ease-in-out;
 <span class="text-xs font-semibold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full">پیشنهاد ویژه VIP</span>
 <h3 class="text-xl font-bold text-white mt-3">اشتراک نامحدود دائم</h3>
 <div class="text-2xl font-bold text-emerald-400 my-3">۱۹۹,۰۰۰ تومان</div>
-<p class="text-xs text-slate-400 leading-relaxed">دسترسی مادام‌العمر به آپدیت‌ها، پشتیبانی ویژه و سیستم مدیریت اختصاصی سفارش‌ها.</p>
+<p class="text-xs text-slate-400 leading-relaxed">دسترسی مادام‌العمر به آپدیت‌ها، پشتیبانی ویژه و سیستم مدیریت سفارش‌ها.</p>
 </div>
 <button onclick="selectPlan('اشتراک نامحدود دائم', '۱۹۹,۰۰۰ تومان')" class="mt-6 w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl text-sm shadow-md">انتخاب این طرح</button>
 </div>
@@ -211,12 +211,12 @@ transition: all 0.2s ease-in-out;
 <div id="receipt-msg" class="hidden p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-xs"></div>
 </div>
 </section>
-​<!-- 5. Admin Management Panel Tab (FIXED) -->
+​<!-- 5. Admin Management Panel Tab -->
 <section id="tab-admin" class="hidden space-y-4">
 <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
 <div class="flex justify-between items-center">
 <h2 class="text-lg font-bold text-white flex items-center">
-<i data-lucide="shield-check" class="w-5 h-5 ml-2 text-emerald-500"></i> بخش مدیریت و بررسی سفارش‌ها
+<i data-lucide="shield-check" class="w-5 h-5 ml-2 text-emerald-500"></i> مدیریت و بررسی سفارش‌ها
 </h2>
 <button onclick="loadAdminData()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg flex items-center">
 <i data-lucide="refresh-cw" class="w-3.5 h-3.5 ml-1"></i> به‌روزرسانی
@@ -231,7 +231,7 @@ transition: all 0.2s ease-in-out;
 ​</main>
 ​<!-- Footer -->
 <footer class="bg-cardBg/50 border-t border-slate-800 py-4 px-4 text-center text-xs text-slate-500">
-کلودبات - بستر امن ابری و مدیریت سرویس‌ها. سازگار با تمامی شبکه‌ها بدون نیاز به ابزار تغییر آی‌پی. 🛡️
+کلودبات - بستر امن ابری و مدیریت سرویس‌ها. سازگار با تمامی شبکه‌ها بدون نیاز به فیلترشکن. 🛡️
 </footer>
 ​<!-- JavaScript - Lightning Fast & LocalStorage Persistence -->
 <script>
@@ -304,7 +304,7 @@ setStoredData('cloud_apps', apps);
 ​const resultBox = document.getElementById('app-result-box');
 const previewArea = document.getElementById('app-preview-area');
 resultBox.classList.remove('hidden');
-previewArea.innerText = [موفقیت] اپلیکیشن "${title}" (${selectedAppType}) با کدنویسی بهینه و سرعت بالا آماده خروجی‌گیری در اپس‌گیزر است! 🚀;
+previewArea.innerText = [موفقیت] اپلیکیشن "${title}" (${selectedAppType}) با کدنویسی بهینه و سرعت بالا آماده خروجی‌گیری شد! 🚀;
 updateStats();
 }
 ​// Pricing & Receipt
@@ -319,7 +319,7 @@ const name = document.getElementById('receipt-name').value.trim();
 const code = document.getElementById('receipt-code').value.trim();
 const msgBox = document.getElementById('receipt-msg');
 ​if(!plan || plan.includes('لطفاً')) {
-alert('لطفاً ابتدا یک طرح اشتراک انتخاب کنید.');
+alert('لطفاً ابتدا یک طرح اشتراک از بالا انتخاب کنید.');
 return;
 }
 if(!name || !code) {
@@ -334,6 +334,7 @@ msgBox.innerHTML = فیش شما با موفقیت ثبت شد و به بخش م
 ​document.getElementById('receipt-name').value = '';
 document.getElementById('receipt-code').value = '';
 updateStats();
+loadAdminData();
 ​setTimeout(() => msgBox.classList.add('hidden'), 5000);
 }
 ​// Admin Panel Data Loader
