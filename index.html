@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل خدمات اختصاصی و ابری</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { vazir: ['Vazirmatn', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            900: '#0c4a6e'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- فونت وزیرمتن -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <!-- کتابخانه‌های React و بابل -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- آیکون‌های فسفر -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body { font-family: 'Vazirmatn', sans-serif; background-color: #0f172a; color: #f8fafc; margin: 0; padding: 0; overflow-x: hidden; }
+        .bot-background { 
+            background: linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(30,58,138,0.85) 100%), 
+                        url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop'); 
+            background-size: cover; background-position: center; background-attachment: fixed; 
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1e293b; }
+        ::-webkit-scrollbar-thumb { background: #0284c7; border-radius: 4px; }
+        .glass-panel { background: rgba(30, 41, 59, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- ماژول‌های فایربیس -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, updateDoc, doc, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        window.firebaseModules = { initializeApp, getAuth, signInAnonymously, getFirestore, collection, addDoc, updateDoc, doc, query, onSnapshot };
+    </script>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // ==========================================
+        // تنظیمات دیتابیس (کلیدهای خودت رو اینجا بگذار)
+        // ==========================================
+        const FIREBASE_CONFIG = {
+            apiKey: "AIzaSy_YOUR_API_KEY",
+            authDomain: "your-app.firebaseapp.com",
+            projectId: "demo-project", // وقتی پروژه واقعی ساختی آیدیش رو اینجا بنویس
+            storageBucket: "your-app.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef"
+        };
+
+        const CARD_NUMBER = "6219861858158784";
+        const CARD_OWNER = "علیرضا نوروزی";
+        const SUPPORT_ID = "@Mrbottelegram88";
+
+        // تابع کاهش حجم عکس برای ارسال سریع به سرور
+        const resizeImage = (file) => {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const MAX_WIDTH = 700;
+                        const scale = Math.min(MAX_WIDTH / img.width, 1);
+                        canvas.width = img.width * scale;
+                        canvas.height = img.height * scale;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        resolve(canvas.toDataURL('image/jpeg', 0.65));
+                    };
+                    img.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        };
+
+        const App = () => {
+            const [view, setView] = useState('home');
+            const [checkoutData, setCheckoutData] = useState(null);
+            const [toast, setToast] = useState(null);
+            const [db, setDb] = useState(null);
+            const [authData, setAuthData] = useState(null);
+            const [userOrders, setUserOrders] = useState([]);
+            const [allOrders, setAllOrders] = useState([]);
+            const [isAdminAuth, setIsAdminAuth] = useState(false);
+            const appId = 'tech-panel-app';
+
+            const showToast = (msg, type = 'info') => {
+                setToast({ msg, type });
+                setTimeout(() => setToast(null), 3500);
+            };
+
+            // اتصال به فایربیس
+            useEffect(() => {
+                const initFirebase = async () => {
+                    if (!window.firebaseModules) { setTimeout(initFirebase, 150); return; }
+                    try {
+                        const { initializeApp, getAuth, signInAnonymously, getFirestore } = window.firebaseModules;
+                        let app = initializeApp(FIREBASE_CONFIG);
+                        const firestoreInstance = getFirestore(app);
+                        const authInstance = getAuth(app);
+                        setDb(firestoreInstance);
+                        
+                        await signInAnonymously(authInstance);
+                        setAuthData(authInstance.currentUser);
+                    } catch (error) {
+                        console.warn("Firebase mode fallback (Local):", error);
+                        // شناسه موقت تستی اگر فایربیس متصل نبود
+                        setAuthData({ uid: 'guest-user-' + Math.floor(Math.random() * 1000) });
+                    }
+                };
+                initFirebase();
+            }, []);
+
+            // همگام‌سازی سفارشات زنده
+            useEffect(() => {
+                if (!db || !authData || FIREBASE_CONFIG.projectId === "demo-project") return;
+                try {
+                    const { collection, onSnapshot, query } = window.firebaseModules;
+                    const ordersRef = collection(db, 'artifacts', appId, 'public', 'data', 'orders');
+                    const unsubscribe = onSnapshot(query(ordersRef), (snapshot) => {
+                        const fetchedOrders = [];
+                        snapshot.forEach((doc) => fetchedOrders.push({ id: doc.id, ...doc.data() }));
+                        fetchedOrders.sort((a, b) => b.timestamp - a.timestamp);
+                        setAllOrders(fetchedOrders);
+                        setUserOrders(fetchedOrders.filter(o => o.userId === authData.uid));
+                    }, (err) => console.log("Realtime stream waiting for active keys"));
+                    return () => unsubscribe();
+                } catch (e) {
+                    console.log(e);
+                }
+            }, [db, authData]);
+
+            const ToastComponent = () => {
+                if (!toast) return null;
+                const bgColors = { 
+                    success: 'bg-emerald-600', 
+                    error: 'bg-rose-600', 
+                    info: 'bg-blue-600', 
+                    warning: 'bg-amber-600' 
+                };
+                return (
+                    <div className={`fixed top-5 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-2xl shadow-2xl text-white font-medium flex items-center gap-2 border border-white/20 transition-all ${bgColors[toast.type] || 'bg-slate-800'}`}>
+                        <span>{toast.msg}</span>
+                    </div>
+                );
+            };
+
+            const copyCardToClipboard = () => {
+                navigator.clipboard.writeText(CARD_NUMBER);
+                showToast("شماره کارت کپی شد!", "success");
+            };
+
+            // صفحه پشتیبانی
+            const SupportView = () => (
+                <div className="flex flex-col items-center justify-center min-h-screen p-4">
+                    <div className="glass-panel p-8 rounded-3xl max-w-md w-full text-center space-y-6 shadow-2xl">
+                        <div className="w-20 h-20 bg-brand-500/20 text-brand-400 rounded-full flex items-center justify-center mx-auto text-4xl">
+                            <i className="ph ph-headset"></i>
+                        </div>
+                        <h2 className="text-2xl font-bold">پشتیبانی و ارتباط مستقیم</h2>
+                        <div className="bg-slate-800/80 p-5 rounded-2xl border border-slate-700/80">
+                            <span className="block text-brand-400 font-bold text-2xl mb-1 tracking-wider" dir="ltr">{SUPPORT_ID}</span>
+                            <span className="text-xs text-gray-400">آیدی مستقیم در تلگرام</span>
+                        </div>
+                        <button onClick={() => setView('home')} className="mt-4 bg-slate-700 hover:bg-slate-600 py-3 rounded-xl w-full font-bold transition">
+                            بازگشت به خانه
+                        </button>
+                    </div>
+                </div>
+            );
+
+            // فرم سفارش ربات
+            const BotFormView = () => {
+                const [form, setForm] = useState({ name: '', email: '', password: '', idea: '' });
+                const handleSubmit = (e) => {
+                    e.preventDefault();
+                    if(!form.name || !form.email || !form.password || !form.idea) {
+                        return showToast("لطفاً همه مشخصات را کامل بنویسید", "warning");
+                    }
+                    setCheckoutData({ type: 'bot', title: 'ربات سفارشی اختصاصی', price: 125000, details: form });
+                    setView('checkout');
+                };
+
+                return (
+                    <div className="min-h-screen p-4 flex flex-col items-center justify-center bot-background relative pt-16">
+                        <button onClick={() => setView('userPanel')} className="absolute top-6 right-6 bg-slate-800/80 hover:bg-slate-700 p-3 rounded-full transition">
+                            <i className="ph ph-arrow-right text-xl"></i>
+                        </button>
+                        <div className="glass-panel p-8 rounded-3xl max-w-lg w-full shadow-2xl">
+                            <div className="text-center mb-6">
+                                <h2 className="text-3xl font-extrabold mb-2 text-white">سفارش ساخت ربات</h2>
+                                <p className="text-gray-300 text-sm">ایده مورد نظرت رو بگو تا صفر تا صد کدنویسی و راه‌اندازیش رو برات انجام بدیم.</p>
+                                <div className="mt-4 inline-block bg-blue-500/20 text-blue-300 px-5 py-2 rounded-full font-bold border border-blue-400/30">
+                                    هزینه هر بات: ۱۲۵,۰۰۰ تومان
+                                </div>
+                            </div>
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                <input type="text" placeholder="نام و نام خانوادگی" className="w-full bg-slate-800/80 border border-slate-600 rounded-xl p-3 text-white focus:border-brand-500 outline-none" value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
+                                <div className="grid grid-cols-2 gap-3">
+                                    <input type="email" placeholder="ایمیل" dir="ltr" className="w-full bg-slate-800/80 border border-slate-600 rounded-xl p-3 text-white focus:border-brand-500 outline-none" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
+                                    <input type="password" placeholder="رمز عبور" dir="ltr" className="w-full bg-slate-800/80 border border-slate-600 rounded-xl p-3 text-white focus:border-brand-500 outline-none" value={form.password} onChange={e => setForm({...form, password: e.target.value})} />
+                                </div>
+                                <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-3 text-xs text-amber-200">
+                                    <strong>توجه:</strong> اطلاعات ورود برای ساخت اکانت اختصاصی شما روی هاست ربات استفاده می‌شود.
+                                </div>
+                                <textarea rows="4" placeholder="توضیحات و ایده ربات مورد نظرتان..." className="w-full bg-slate-800/80 border border-slate-600 rounded-xl p-3 text-white resize-none focus:border-brand-500 outline-none" value={form.idea} onChange={e => setForm({...form, idea: e.target.value})}></textarea>
+                                <button type="submit" className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl shadow-lg flex items-center justify-center gap-2 transition">
+                                    <i className="ph ph-credit-card text-xl"></i> ادامه و پرداخت
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                );
+            };
+
+            // فرم سفارش سایت و سرور
+            const SiteFormView = () => {
+                const [form, setForm] = useState({ name: '', email: '', password: '', serverType: 'اختصاصی', time: '1', siteName: '', domainExt: '.ir', storage: 10, ram: 2, cores: 1 });
+                
+                const handleProceedToPay = () => {
+                    if(!form.name || !form.email || !form.password || !form.siteName) return showToast("لطفاً اطلاعات را کامل پر کنید", "warning");
+                    
+                    let base = form.serverType === 'اختصاصی' ? 300000 : 150000;
+                    let timeMult = parseInt(form.time) || 1;
+                    let rawTotal = (base + (form.ram * 60000) + (form.cores * 100000) + (form.storage * 8000)) * timeMult;
+                    let finalTotal = rawTotal < 1000000 ? rawTotal + 500000 : rawTotal + 1000000;
+
+                    setCheckoutData({ type: 'site', title: `سایت و سرور (${form.siteName}${form.domainExt})`, price: finalTotal, details: form });
+                    setView('checkout');
+                };
+
+                return (
+                    <div className="min-h-screen p-4 flex flex-col items-center justify-center bg-slate-900 relative pt-16">
+                        <button onClick={() => setView('userPanel')} className="absolute top-6 right-6 bg-slate-800 p-3 rounded-full hover:bg-slate-700 transition">
+                            <i className="ph ph-arrow-right text-xl"></i>
+                        </button>
+                        <div className="glass-panel p-8 rounded-3xl max-w-2xl w-full shadow-2xl">
+                            <h2 className="text-3xl font-bold mb-6 text-center text-white flex items-center justify-center gap-2">
+                                <i className="ph ph-globe text-emerald-400"></i> پیکربندی و خرید سایت
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div className="space-y-4">
+                                    <h3 className="text-md font-bold text-brand-400 border-b border-slate-700 pb-2">اطلاعات حساب</h3>
+                                    <input type="text" placeholder="نام و نام خانوادگی" className="w-full bg-slate-800 border border-slate-600 rounded-xl p-2.5 text-white outline-none" value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
+                                    <input type="email" placeholder="ایمیل معتبر" dir="ltr" className="w-full bg-slate-800 border border-slate-600 rounded-xl p-2.5 text-white outline-none" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
+                                    <input type="password" placeholder="رمز عبور پنل" dir="ltr" className="w-full bg-slate-800 border border-slate-600 rounded-xl p-2.5 text-white outline-none" value={form.password} onChange={e => setForm({...form, password: e.target.value})} />
+                                </div>
+                                <div className="space-y-4">
+                                    <h3 className="text-md font-bold text-brand-400 border-b border-slate-700 pb-2">مشخصات هاست و دامنه</h3>
+                                    <div className="flex gap-2">
+                                        <select className="w-1/2 bg-slate-800 border border-slate-600 rounded-xl p-2.5 text-white outline-none" value={form.serverType} onChange={e => setForm({...form, serverType: e.target.value})}>
+                                            <option value="ابری">سرور ابری</option> 
+                                            <option value="اختصاصی">سرور اختصاصی</option>
+                                        </select>
+                                        <select className="w-1/2 bg-slate-800 border border-slate-600 rounded-xl p-2.5 text-white outline-none" value={form.time} onChange={e => setForm({...form, time: e.target.value})}>
+                                            <option value="1">۱ ماهه</option> 
+                                            <option value="3">۳ ماهه</option> 
+                                            <option value="6">۶ ماهه</option> 
+                                            <option value="12">۱ ساله</option>
+                                        </select>
+                                    </div>
+                                    <div className="flex gap-2" dir="ltr">
+                                        <input type="text" placeholder="نام دامنه (mysite)" className="w-2/3 bg-slate-800 border border-slate-600 rounded-xl p-2.5 text-white text-right outline-none" value={form.siteName} onChange={e => setForm({...form, siteName: e.target.value})} />
+                                        <select className="w-1/3 bg-slate-800 border border-slate-600 rounded-xl p-2.5 text-white outline-none" value={form.domainExt} onChange={e => setForm({...form, domainExt: e.target.value})}>
+                                            <option value=".ir">.ir</option> 
+                                            <option value=".com">.com</option> 
+                                            <option value=".net">.net</option>
+                                        </select>
+                                    </div>
+                                    <div className="grid grid-cols-3 gap-2">
+                                        <div><label className="text-[11px] text-gray-400">حافظه (GB)</label><input type="number" className="w-full bg-slate-800 border border-slate-600 rounded-xl p-2 text-white text-center" value={form.storage} onChange={e => setForm({...form, storage: e.target.value})} /></div>
+                                        <div><label className="text-[11px] text-gray-400">رم (GB)</label><input type="number" className="w-full bg-slate-800 border border-slate-600 rounded-xl p-2 text-white text-center" value={form.ram} onChange={e => setForm({...form, ram: e.target.value})} /></div>
+                                        <div><label className="text-[11px] text-gray-400">تعداد هسته</label><input type="number" className="w-full bg-slate-800 border border-slate-600 rounded-xl p-2 text-white text-center" value={form.cores} onChange={e => setForm({...form, cores: e.target.value})} /></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button onClick={handleProceedToPay} className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 rounded-xl shadow-lg text-lg flex justify-center items-center gap-2 transition">
+                                <i className="ph ph-credit-card text-2xl"></i> محاسبه و رفتن به پرداخت
+                            </button>
+                        </div>
+                    </div>
+                );
+            };
+
+            // صفحه نهایی آپلود رسید و پرداخت
+            const CheckoutView = () => {
+                const [receiptBase64, setReceiptBase64] = useState(null);
+                const [isUploading, setIsUploading] = useState(false);
+                const fileInputRef = useRef(null);
+
+                const handleImageUpload = async (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const resized = await resizeImage(file);
+                        setReceiptBase64(resized);
+                        showToast("فیش با موفقیت انتخاب شد", "success");
+                    }
+                };
+
+                const handleSubmitOrder = async () => {
+                    if (!receiptBase64) return showToast("لطفاً ابتدا تصویر فیش واریز را بارگذاری کنید", "warning");
+                    setIsUploading(true);
+
+                    const orderPayload = {
+                        userId: authData ? authData.uid : 'guest',
+                        type: checkoutData.type,
+                        title: checkoutData.title,
+                        price: checkoutData.price,
+                        details: checkoutData.details,
+                        receiptImage: receiptBase64,
+                        status: 'pending',
+                        timestamp: Date.now()
+                    };
+
+                    try {
+                        if (db && FIREBASE_CONFIG.projectId !== "demo-project") {
+                            const { collection, addDoc } = window.firebaseModules;
+                            await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'orders'), orderPayload);
+                        } else {
+                            // حالت تستی / بدون کلید
+                            setUserOrders(prev => [orderPayload, ...prev]);
+                            setAllOrders(prev => [orderPayload, ...prev]);
+                        }
+                        showToast("سفارش با موفقیت ثبت شد و در انتظار تایید مدیریت است", "success");
+                        setCheckoutData(null);
+                        setView('myOrders');
+                    } catch (err) {
+                        showToast("خطا در ارسال، مجدداً تلاش کنید", "error");
+                    } finally {
+                        setIsUploading(false);
+                    }
+                };
+
+                return (
+                    <div className="min-h-screen p-4 flex flex-col items-center justify-center bg-slate-900 relative">
+                        <button onClick={() => setView(checkoutData.type === 'bot' ? 'bot' : 'site')} className="absolute top-6 right-6 bg-slate-800 p-3 rounded-full hover:bg-slate-700 transition">
+                            <i className="ph ph-arrow-right text-xl"></i>
+                        </button>
+                        <div className="bg-slate-800 p-8 rounded-3xl max-w-md w-full shadow-2xl border border-slate-700/50">
+                            <h2 className="text-2xl font-bold mb-4 text-center border-b border-slate-700 pb-3">پرداخت و تکمیل خرید</h2>
+                            
+                            <div className="bg-slate-900/60 rounded-2xl p-4 mb-5 text-center border border-slate-700/40">
+                                <p className="text-gray-400 text-sm mb-1">{checkoutData.title}</p>
+                                <p className="text-3xl font-extrabold text-emerald-400">
+                                    {checkoutData.price.toLocaleString('fa-IR')} <span className="text-sm font-normal text-gray-400">تومان</span>
+                                </p>
+                            </div>
+
+                            {/* کارت بانکی شکیل */}
+                            <div className="bg-gradient-to-br from-blue-700 to-indigo-900 rounded-2xl p-5 mb-5 shadow-xl text-center relative overflow-hidden">
+                                <div className="flex justify-between items-center text-xs text-blue-200 mb-3">
+                                    <span>بانک سامان / مقصد</span>
+                                    <i className="ph ph-credit-card text-2xl opacity-80"></i>
+                                </div>
+                                <p className="text-xl md:text-2xl font-mono tracking-widest text-white mb-2 font-bold" dir="ltr">
+                                    6219 8618 5815 8784
+                                </p>
+                                <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/10">
+                                    <span className="text-sm text-gray-200">{CARD_OWNER}</span>
+                                    <button onClick={copyCardToClipboard} className="bg-white/20 hover:bg-white/30 text-white text-xs px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+                                        <i className="ph ph-copy"></i> کپی شماره
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* آپلود فیش */}
+                            <div className="mb-6">
+                                <div 
+                                    className="border-2 border-dashed border-slate-600 hover:border-brand-400 bg-slate-900/40 rounded-2xl p-4 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[120px]"
+                                    onClick={() => fileInputRef.current.click()}
+                                >
+                                    {receiptBase64 ? (
+                                        <div className="flex flex-col items-center">
+                                            <img src={receiptBase64} alt="رسید" className="h-24 object-contain rounded-lg mb-2 shadow" />
+                                            <span className="text-xs text-emerald-400 flex items-center gap-1">
+                                                <i className="ph ph-check-circle"></i> فیش انتخاب شد (تغییر)
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <div className="text-gray-400 flex flex-col items-center">
+                                            <i className="ph ph-upload-simple text-3xl mb-1 text-brand-400"></i>
+                                            <span className="text-sm">آپلود عکس فیش یا اسکرین‌شات واریزی</span>
+                                        </div>
+                                    )}
+                                </div>
+                                <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleImageUpload} />
+                            </div>
+
+                            <button 
+                                onClick={handleSubmitOrder} 
+                                disabled={isUploading}
+                                className="w-full bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-700 text-white font-bold py-3.5 rounded-xl shadow-lg flex justify-center items-center gap-2 transition"
+                            >
+                                <i className="ph ph-paper-plane-tilt text-xl"></i> {isUploading ? "در حال ثبت..." : "ارسال نهایی سفارش"}
+                            </button>
+                        </div>
+                    </div>
+                );
+            };
+
+            // صفحه پیگیری سفارشات
+            const MyOrdersView = () => (
+                <div className="min-h-screen p-4 md:p-8 bg-slate-900 pt-20">
+                    <button onClick={() => setView('userPanel')} className="absolute top-6 right-6 bg-slate-800 p-3 rounded-full hover:bg-slate-700">
+                        <i className="ph ph-arrow-right text-xl"></i>
+                    </button>
+                    <h2 className="text-2xl font-bold mb-6 text-center text-white">سفارش‌های ثبت شده</h2>
+                    <div className="max-w-2xl mx-auto space-y-3">
+                        {userOrders.map((order, idx) => (
+                            <div key={idx} className="bg-slate-800 p-4 rounded-2xl border border-slate-700 flex justify-between items-center shadow-md">
+                                <div>
+                                    <h4 className="font-bold text-white">{order.title}</h4>
+                                    <p className="text-xs text-gray-400 mt-1">{new Date(order.timestamp).toLocaleTimeString('fa-IR')} - {order.price?.toLocaleString('fa-IR')} تومان</p>
+                                </div>
+                                <div>
+                                    {order.status === 'pending' && <span className="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full text-xs font-bold border border-amber-500/20">در حال بررسی</span>}
+                                    {order.status === 'accepted' && <span className="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full text-xs font-bold border border-emerald-500/20">تایید شده</span>}
+                                    {order.status === 'rejected' && <span className="bg-rose-500/10 text-rose-400 px-3 py-1 rounded-full text-xs font-bold border border-rose-500/20">رد شده</span>}
+                                </div>
+                            </div>
+                        ))}
+                        {userOrders.length === 0 && (
+                            <div className="text-center py-16 text-gray-400 glass-panel rounded-2xl">
+                                <i className="ph ph-shopping-bag text-5xl mb-2 text-slate-500"></i>
+                                <p>هنوز سفارشی ثبت نکرده‌اید.</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+
+            // پنل ادمین
+            const AdminPanelView = () => {
+                const [pass, setPass] = useState('');
+                const [receipt, setReceipt] = useState(null);
+
+                if (!isAdminAuth) {
+                    return (
+                        <div className="flex flex-col items-center justify-center min-h-screen p-4">
+                            <button onClick={() => setView('home')} className="absolute top-6 right-6 bg-slate-800 p-3 rounded-full hover:bg-slate-700">
+                                <i className="ph ph-arrow-right text-xl"></i>
+                            </button>
+                            <div className="glass-panel p-8 rounded-3xl max-w-sm w-full text-center shadow-2xl">
+                                <i className="ph ph-lock-key text-4xl text-brand-400 mb-3"></i>
+                                <h2 className="text-xl font-bold mb-4">ورود به پنل مدیریت</h2>
+                                <input type="password" placeholder="رمز عبور" className="w-full bg-slate-800 border border-slate-600 rounded-xl p-3 text-center mb-4 text-white outline-none focus:border-brand-500" value={pass} onChange={e => setPass(e.target.value)} />
+                                <button onClick={() => pass === 'alireza' ? setIsAdminAuth(true) : showToast('رمز اشتباه است', 'error')} className="w-full bg-brand-600 hover:bg-brand-500 py-3 rounded-xl font-bold transition">
+                                    تایید و ورود
+                                </button>
+                            </div>
+                        </div>
+                    );
+                }
+
+                return (
+                    <div className="min-h-screen p-4 bg-slate-900 pt-20">
+                        <div className="max-w-4xl mx-auto flex justify-between items-center mb-6 bg-slate-800 p-4 rounded-2xl border border-slate-700">
+                            <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                                <i className="ph ph-shield-check text-brand-400"></i> مدیریت سفارشات
+                            </h2>
+                            <button onClick={() => setView('home')} className="bg-slate-700 hover:bg-slate-600 px-4 py-2 rounded-xl text-sm transition">
+                                خروج
+                            </button>
+                        </div>
+                        <div className="max-w-4xl mx-auto space-y-3">
+                            {allOrders.map((order, idx) => (
+                                <div key={idx} className="bg-slate-800 p-4 rounded-2xl flex justify-between items-center border border-slate-700">
+                                    <div>
+                                        <div className="font-bold text-white">{order.details?.name} - {order.title}</div>
+                                        <div className="text-xs text-emerald-400 mt-1">{order.price?.toLocaleString('fa-IR')} تومان</div>
+                                    </div>
+                                    <button onClick={() => setReceipt(order)} className="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1">
+                                        <i className="ph ph-eye"></i> مشاهده فیش
+                                    </button>
+                                </div>
+                            ))}
+                            {allOrders.length === 0 && <div className="text-center text-gray-500 py-10">سفارشی وجود ندارد.</div>}
+                        </div>
+
+                        {receipt && (
+                            <div className="fixed inset-0 bg-black/85 flex items-center justify-center z-50 p-4">
+                                <div className="bg-slate-800 p-6 rounded-3xl max-w-md w-full text-center border border-slate-700">
+                                    <img src={receipt.receiptImage} alt="رسید" className="max-h-60 mx-auto mb-4 object-contain rounded-xl shadow" />
+                                    <div className="flex gap-3">
+                                        <button onClick={async () => {
+                                            if(db && receipt.id) await window.firebaseModules.updateDoc(window.firebaseModules.doc(db, 'artifacts', appId, 'public', 'data', 'orders', receipt.id), { status: 'accepted' });
+                                            receipt.status = 'accepted';
+                                            setReceipt(null);
+                                            showToast("سفارش تایید شد", "success");
+                                        }} className="flex-1 bg-emerald-600 py-3 rounded-xl font-bold">تایید</button>
+                                        <button onClick={async () => {
+                                            if(db && receipt.id) await window.firebaseModules.updateDoc(window.firebaseModules.doc(db, 'artifacts', appId, 'public', 'data', 'orders', receipt.id), { status: 'rejected' });
+                                            receipt.status = 'rejected';
+                                            setReceipt(null);
+                                            showToast("سفارش رد شد", "warning");
+                                        }} className="flex-1 bg-rose-600 py-3 rounded-xl font-bold">رد</button>
+                                    </div>
+                                    <button onClick={() => setReceipt(null)} className="mt-4 text-xs text-gray-400">انصراف</button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                );
+            };
+
+            const MainRouter = () => {
+                if (view === 'userPanel') return (
+                    <div className="flex flex-col items-center justify-center min-h-screen p-4 space-y-6 pt-16">
+                        <button onClick={() => setView('home')} className="absolute top-6 right-6 bg-slate-800 p-3 rounded-full hover:bg-slate-700">
+                            <i className="ph ph-arrow-right text-xl"></i>
+                        </button>
+                        <h2 className="text-3xl font-extrabold text-brand-400 mb-4">انتخاب نوع سرویس</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full max-w-2xl">
+                            <button onClick={() => setView('bot')} className="bg-slate-800/90 hover:bg-slate-700/90 border border-blue-500/30 p-8 rounded-3xl flex flex-col items-center gap-4 transition shadow-xl group">
+                                <i className="ph ph-robot text-6xl text-blue-400 group-hover:scale-110 transition"></i>
+                                <span className="text-xl font-bold">سفارش ساخت بات</span>
+                            </button>
+                            <button onClick={() => setView('site')} className="bg-slate-800/90 hover:bg-slate-700/90 border border-emerald-500/30 p-8 rounded-3xl flex flex-col items-center gap-4 transition shadow-xl group">
+                                <i className="ph ph-globe text-6xl text-emerald-400 group-hover:scale-110 transition"></i>
+                                <span className="text-xl font-bold">خرید سایت و سرور</span>
+                            </button>
+                        </div>
+                        <button onClick={() => setView('myOrders')} className="mt-4 text-gray-300 hover:text-white bg-slate-800 hover:bg-slate-700 px-6 py-3 rounded-2xl border border-slate-700 transition">
+                            <i className="ph ph-clock-counter-clockwise mr-1"></i> پیگیری سفارشات من
+                        </button>
+                    </div>
+                );
+                if (view === 'bot') return <BotFormView />;
+                if (view === 'site') return <SiteFormView />;
+                if (view === 'checkout') return <CheckoutView />;
+                if (view === 'admin') return <AdminPanelView />;
+                if (view === 'support') return <SupportView />;
+                if (view === 'myOrders') return <MyOrdersView />;
+
+                return (
+                    <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center">
+                        <div className="w-20 h-20 bg-blue-500/10 border border-blue-400/20 rounded-3xl flex items-center justify-center text-4xl text-blue-400 mb-6 shadow-2xl">
+                            <i className="ph ph-cpu"></i>
+                        </div>
+                        <h1 className="text-4xl md:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-sky-300 to-emerald-400 mb-4">
+                            پلتفرم خدمات ابری و بات
+                        </h1>
+                        <p className="text-gray-400 max-w-md text-sm md:text-base mb-8">سفارش آنلاین انواع بات‌های تلگرامی، هاستینگ اختصاصی و راه‌اندازی سریع وب‌سایت</p>
+                        <div className="flex flex-col w-full max-w-xs space-y-3">
+                            <button onClick={() => setView('userPanel')} className="bg-brand-600 hover:bg-brand-500 text-white font-bold py-3.5 rounded-2xl shadow-xl transition flex items-center justify-center gap-2">
+                                <i className="ph ph-user text-xl"></i> ورود به پنل سفارش
+                            </button>
+                            <button onClick={() => setView('admin')} className="bg-slate-800 hover:bg-slate-700 text-white font-bold py-3.5 rounded-2xl shadow-xl border border-slate-700 transition flex items-center justify-center gap-2">
+                                <i className="ph ph-shield text-xl"></i> پنل مدیریت
+                            </button>
+                            <button onClick={() => setView('support')} className="bg-slate-800 hover:bg-slate-700 text-gray-300 font-bold py-3.5 rounded-2xl shadow-xl border border-slate-700 transition flex items-center justify-center gap-2">
+                                <i className="ph ph-chat-circle-dots text-xl"></i> ارتباط با پشتیبانی
+                            </button>
+                        </div>
+                    </div>
+                );
+            };
+
+            return (
+                <div className="min-h-screen relative">
+                    <ToastComponent />
+                    <MainRouter />
+                </div>
+            );
+        };
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+</html>
