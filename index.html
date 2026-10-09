@@ -38,7 +38,7 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
 
-    <header class="bg-cardBg/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40 px-4 py-3 shadow-lg">
+    <header class="bg-cardBg/95 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40 px-4 py-3 shadow-lg">
         <div class="max-w-4xl mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-3 space-x-reverse">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-emerald-500 flex items-center justify-center shadow-md shadow-blue-500/20">
@@ -57,40 +57,42 @@
         </div>
     </header>
 
-    <nav class="bg-cardBg/50 border-b border-slate-800 px-2 py-2 overflow-x-auto">
-        <div class="max-w-4xl mx-auto flex space-x-1 space-x-reverse min-w-max">
-            <button onclick="switchTab('dashboard')" id="btn-dashboard" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium bg-blue-600 text-white shadow-md smooth-transition flex items-center space-x-1.5 space-x-reverse">
+    <!-- Navigation Menu (Separate Tabs) -->
+    <nav class="bg-cardBg/80 border-b border-slate-800 px-2 py-3 overflow-x-auto shadow-inner">
+        <div class="max-w-4xl mx-auto flex space-x-2 space-x-reverse min-w-max">
+            <button onclick="switchTab('dashboard')" id="btn-dashboard" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-md smooth-transition flex items-center space-x-2 space-x-reverse">
                 <i data-lucide="layout-dashboard" class="w-4 h-4 ml-1"></i> داشبورد 📊
             </button>
-            <button onclick="switchTab('calculator')" id="btn-calculator" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-1.5 space-x-reverse">
-                <i data-lucide="calculator" class="w-4 h-4 ml-1"></i> ماشین‌حساب قیمت سرور 🧮
+            <button onclick="switchTab('calculator')" id="btn-calculator" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-2 space-x-reverse">
+                <i data-lucide="calculator" class="w-4 h-4 ml-1"></i> ماشین‌حساب سرور 🧮
             </button>
-            <button onclick="switchTab('botbuilder')" id="btn-botbuilder" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-1.5 space-x-reverse">
-                <i data-lucide="bot" class="w-4 h-4 ml-1"></i> ساخت ربات 🤖
+            <button onclick="switchTab('botbuilder')" id="btn-botbuilder" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-2 space-x-reverse">
+                <i data-lucide="bot" class="w-4 h-4 ml-1"></i> بخش ساخت ربات 🤖
             </button>
-            <button onclick="switchTab('appbuilder')" id="btn-appbuilder" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-1.5 space-x-reverse">
+            <button onclick="switchTab('appbuilder')" id="btn-appbuilder" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-2 space-x-reverse">
                 <i data-lucide="code" class="w-4 h-4 ml-1"></i> ساخت برنامه و بازی ⚡
             </button>
-            <button onclick="switchTab('pricing')" id="btn-pricing" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-1.5 space-x-reverse">
+            <button onclick="switchTab('pricing')" id="btn-pricing" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-2 space-x-reverse">
                 <i data-lucide="credit-card" class="w-4 h-4 ml-1"></i> تعرفه و درگاه امن 🔒
             </button>
-            <button onclick="switchTab('support')" id="btn-support" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-1.5 space-x-reverse">
+            <button onclick="switchTab('support')" id="btn-support" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-2 space-x-reverse">
                 <i data-lucide="headset" class="w-4 h-4 ml-1"></i> چت پشتیبانی 💬
             </button>
-            <button onclick="switchTab('admin')" id="btn-admin" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-1.5 space-x-reverse">
-                <i data-lucide="shield-check" class="w-4 h-4 ml-1"></i> مدیریت 🛡️
+            <button onclick="switchTab('admin')" id="btn-admin" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center space-x-2 space-x-reverse">
+                <i data-lucide="shield-check" class="w-4 h-4 ml-1"></i> بخش مدیریت 🛡️
             </button>
         </div>
     </nav>
 
     <main class="max-w-4xl mx-auto p-4 flex-grow w-full space-y-6">
 
+        <!-- 1. DASHBOARD SECTION -->
         <section id="tab-dashboard" class="space-y-6">
             <div class="bg-gradient-to-r from-blue-900/40 to-slate-900 border border-blue-500/20 rounded-2xl p-6 shadow-xl relative overflow-hidden">
                 <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-blue-500/10 rounded-full blur-2xl"></div>
                 <h2 class="text-xl font-bold text-white mb-2">خوش آمدید، کاربر عزیز! 👋</h2>
                 <p class="text-sm text-slate-300 leading-relaxed">
-                    سیستم با سرعت نور و بدون نیاز به فیلترشکن به سرورهای ابری متصل است. با ماشین‌حساب هوشمند قیمت سرور می‌توانید پکیج دلخواه خود را محاسبه کرده و سفارش دهید. 🚀✨
+                    سیستم با سرعت نور و بدون نیاز به فیلترشکن به سرورهای ابری متصل است. با بخش‌های مجزای سایت می‌توانید سرور محاسبه کنید، ربات بسازید و سفارش‌ها را پیگیری نمایید. 🚀✨
                 </p>
                 <div class="mt-4 flex flex-wrap gap-2 text-xs">
                     <span class="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20 flex items-center"><i data-lucide="shield-check" class="w-3.5 h-3.5 ml-1"></i> ضمانت بازگشت وجه ۷ روزه</span>
@@ -124,7 +126,7 @@
                 </div>
             </div>
 
-            <!-- Trust & Testimonials Section -->
+            <!-- Testimonials -->
             <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <h3 class="text-lg font-bold text-white flex items-center">
                     <i data-lucide="star" class="w-5 h-5 ml-2 text-amber-400"></i> نظرات مشتریان راضی (اعتماد شما، اعتبار ماست) 🌟
@@ -135,19 +137,20 @@
                             <span class="font-bold text-sm text-white">رضا مهدوی</span>
                             <div class="flex text-amber-400"><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i></div>
                         </div>
-                        <p class="text-xs text-slate-300">«ماشین‌حساب قیمت‌گذاری سرورتون بی‌نظیره؛ دقیقاً همون چیزی که می‌خواستم رو با قیمت شفاف حساب کرد و درگاهش هم عالی کار کرد.» 👍✨</p>
+                        <p class="text-xs text-slate-300">«ماشین‌حساب قیمت‌گذاری سرورتون بی‌نظیره؛ قیمت پارس‌پک رو استخراج کرد و خیلی شفاف حساب کرد.» 👍✨</p>
                     </div>
                     <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl space-y-2">
                         <div class="flex items-center justify-between">
                             <span class="font-bold text-sm text-white">سارا اکبری</span>
                             <div class="flex text-amber-400"><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i></div>
                         </div>
-                        <p class="text-xs text-slate-300">«پشتیبانی آنلاین و سرعت بالای پنل فوق‌العاده‌ست. خیلی راحت تونستم رباتم رو راه بندازم.» 🚀🔥</p>
+                        <p class="text-xs text-slate-300">«بخش پشتیبانی و سرعت لود برنامه فوق‌العاده‌ست. خیلی راحت تونستم سفارشم رو ثبت کنم.» 🚀🔥</p>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- 2. CALCULATOR SECTION -->
         <section id="tab-calculator" class="hidden space-y-6">
             <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-3">
@@ -157,7 +160,7 @@
                     <span class="text-xs bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20">آنلاین و دقیق</span>
                 </div>
                 <p class="text-xs text-slate-300 leading-relaxed">
-                    مشخصات سرور را انتخاب کنید تا قیمت بروز از پارس‌پک و سرورها استخراج شده و سود منصفانه (۵۰۰ هزار تومان برای زیر ۱ میلیون و ۱ میلیون تومان برای بالای ۱ میلیون) اعمال شود. ⚙️💡
+                    مشخصات سرور را انتخاب کنید تا نرخ از پارس‌پک محاسبه شده و سود خدمات به‌صورت خودکار اعمال شود (زیر ۱ میلیون تومان: ۵۰۰ هزار تومان سود؛ بالای ۱ میلیون تومان: ۱ میلیون تومان سود). ⚙️💡
                 </p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -186,7 +189,7 @@
                         <span id="calc-base-price" class="font-mono text-white">۰ تومان</span>
                     </div>
                     <div class="flex justify-between items-center text-xs text-slate-400">
-                        <span>سود سرویس (اتوماتیک):</span>
+                        <span>سود خدمات (اتوماتیک):</span>
                         <span id="calc-service-fee" class="font-mono text-emerald-400">۰ تومان</span>
                     </div>
                     <div class="border-t border-slate-800 pt-3 flex justify-between items-center">
@@ -201,11 +204,16 @@
             </div>
         </section>
 
+        <!-- 3. BOT BUILDER SECTION -->
         <section id="tab-botbuilder" class="hidden space-y-4">
-            <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl">
-                <h2 class="text-lg font-bold text-white mb-4 flex items-center">
-                    <i data-lucide="bot" class="w-5 h-5 ml-2 text-blue-500"></i> ساخت و تنظیم ربات هوشمند ابری 🤖
-                </h2>
+            <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+                <div class="border-b border-slate-800 pb-3">
+                    <h2 class="text-lg font-bold text-white flex items-center">
+                        <i data-lucide="bot" class="w-5 h-5 ml-2 text-blue-500"></i> بخش ساخت ربات هوشمند ابری 🤖
+                    </h2>
+                </div>
+                <p class="text-xs text-slate-400">ربات خود را در بستر ابری کلودبات راه‌اندازی و مدیریت کنید. 🌐</p>
+                
                 <div class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-slate-300 mb-1">نام سرویس یا ربات</label>
@@ -219,20 +227,23 @@
                         <i data-lucide="plus-circle" class="w-4 h-4 ml-2"></i> ثبت و راه‌اندازی ربات 🚀
                     </button>
                 </div>
-                <div id="bot-success-msg" class="hidden mt-4 p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-xs">
+                <div id="bot-success-msg" class="hidden p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-xs">
                     سرویس ربات شما با موفقیت در بستر ابری ذخیره و فعال شد! ✨
                 </div>
             </div>
         </section>
 
+        <!-- 4. APP & GAME BUILDER SECTION -->
         <section id="tab-appbuilder" class="hidden space-y-4">
-            <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl">
-                <h2 class="text-lg font-bold text-white mb-2 flex items-center">
-                    <i data-lucide="code" class="w-5 h-5 ml-2 text-emerald-500"></i> بخش ساخت برنامه و مینی‌بازی ابری ⚡
-                </h2>
-                <p class="text-xs text-slate-400 mb-4">قالب مورد نظر خود را انتخاب کنید تا با سرعت نور خروجی آماده شود. 🎮📱</p>
+            <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+                <div class="border-b border-slate-800 pb-3">
+                    <h2 class="text-lg font-bold text-white flex items-center">
+                        <i data-lucide="code" class="w-5 h-5 ml-2 text-emerald-500"></i> بخش ساخت برنامه و مینی‌بازی ابری ⚡
+                    </h2>
+                </div>
+                <p class="text-xs text-slate-400">قالب مورد نظر خود را انتخاب کنید تا با سرعت نور خروجی آماده شود. 🎮📱</p>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div onclick="selectAppTemplate('game')" id="tpl-game" class="cursor-pointer border border-emerald-500 bg-slate-900/50 p-4 rounded-xl smooth-transition">
                         <div class="font-bold text-white text-sm mb-1 flex items-center"><i data-lucide="gamepad-2" class="w-4 h-4 ml-1 text-emerald-400"></i> مینی‌بازی کلیکی سرعت</div>
                         <p class="text-xs text-slate-400">یک بازی سرگرم‌کننده و امتیازی سریع.</p>
@@ -243,7 +254,7 @@
                     </div>
                 </div>
 
-                <div class="space-y-4">
+                <div class="space-y-4 pt-2">
                     <div>
                         <label class="block text-sm font-medium text-slate-300 mb-1">عنوان برنامه / بازی</label>
                         <input type="text" id="app-title-input" placeholder="مثلاً اپلیکیشن مدیریت من" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-xs focus:outline-none focus:border-emerald-500">
@@ -253,13 +264,14 @@
                     </button>
                 </div>
 
-                <div id="app-result-box" class="hidden mt-4 p-4 bg-slate-900 border border-slate-700 rounded-xl space-y-2">
+                <div id="app-result-box" class="hidden p-4 bg-slate-900 border border-slate-700 rounded-xl space-y-2">
                     <div class="text-sm font-bold text-emerald-400">برنامه شما آماده شد! 🎉</div>
                     <div id="app-preview-area" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg font-mono overflow-x-auto"></div>
                 </div>
             </div>
         </section>
 
+        <!-- 5. PRICING & TRUST SECTION -->
         <section id="tab-pricing" class="hidden space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="bg-cardBg border border-slate-800 p-6 rounded-2xl shadow-xl flex flex-col justify-between">
@@ -294,16 +306,19 @@
             </div>
         </section>
 
+        <!-- 6. SUPPORT CHAT SECTION -->
         <section id="tab-support" class="hidden space-y-4">
             <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-                <h2 class="text-lg font-bold text-white flex items-center">
-                    <i data-lucide="headset" class="w-5 h-5 ml-2 text-amber-500"></i> چت آنلاین با پشتیبانی کلودبات 💬
-                </h2>
-                <p class="text-xs text-slate-400">سوال یا مشکلی دارید؟ پیام خود را بنویسید تا کارشناسان ما پاسخ دهند. 🎧</p>
+                <div class="border-b border-slate-800 pb-3">
+                    <h2 class="text-lg font-bold text-white flex items-center">
+                        <i data-lucide="headset" class="w-5 h-5 ml-2 text-amber-500"></i> بخش چت آنلاین با پشتیبانی کلودبات 💬
+                    </h2>
+                </div>
+                <p class="text-xs text-slate-400">سوال یا مشکلی دارید؟ پیام خود را بنویسید تا کارشناسان پاسخ دهند. 🎧</p>
                 
                 <div id="chat-messages" class="h-48 bg-slate-900 border border-slate-800 rounded-xl p-4 overflow-y-auto space-y-3 text-xs">
                     <div class="p-3 bg-slate-800 rounded-xl text-slate-300 w-fit max-w-[80%]">
-                        سلام! چطور می‌تونیم در محاسبه سرور یا خرید اشتراک کمکتون کنیم؟ 😊
+                        سلام! چطور می‌توانیم در محاسبه سرور یا خرید اشتراک کمکتان کنیم؟ 😊
                     </div>
                 </div>
 
@@ -314,17 +329,18 @@
             </div>
         </section>
 
+        <!-- 7. ADMIN SECTION -->
         <section id="tab-admin" class="hidden space-y-4">
             <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                     <h2 class="text-lg font-bold text-white flex items-center">
-                        <i data-lucide="shield-check" class="w-5 h-5 ml-2 text-emerald-500"></i> مدیریت و بررسی سفارش‌ها 🛡️
+                        <i data-lucide="shield-check" class="w-5 h-5 ml-2 text-emerald-500"></i> بخش مدیریت و بررسی سفارش‌ها 🛡️
                     </h2>
                     <button onclick="loadAdminData()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg flex items-center">
                         <i data-lucide="refresh-cw" class="w-3.5 h-3.5 ml-1"></i> به‌روزرسانی
                     </button>
                 </div>
-                <p class="text-xs text-slate-400">تمام سفارش‌ها و فیش‌های ارسالی کاربران به صورت آنی در این بخش ثبت می‌شوند. 📋</p>
+                <p class="text-xs text-slate-400">تمام سفارش‌ها و فیش‌های واریزی کاربران به‌صورت آنی در این بخش ذخیره و نمایش داده می‌شوند. 📋</p>
                 
                 <div id="admin-receipts-list" class="space-y-3">
                     <!-- Receipts populated via JS -->
@@ -334,7 +350,7 @@
 
     </main>
 
-    <!-- Bank Gateway & Receipt Modal -->
+    <!-- Bank Gateway Modal (With Alireza Norouzi Card: 6219861858158784) -->
     <div id="bank-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl relative">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
@@ -413,16 +429,18 @@
         }
 
         function switchTab(tabId) {
-            document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
+            document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('bg-blue-600', 'text-white', 'shadow-md');
-                btn.classList.add('text-slate-400', 'hover:text-white', 'hover:bg-slate-800');
+                btn.classList.add('text-slate-300', 'hover:text-white', 'hover:bg-slate-800');
             });
 
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            const targetSection = document.getElementById('tab-' + tabId);
+            if(targetSection) targetSection.classList.remove('hidden');
+
             const activeBtn = document.getElementById('btn-' + tabId);
             if(activeBtn) {
-                activeBtn.classList.remove('text-slate-400', 'hover:text-white', 'hover:bg-slate-800');
+                activeBtn.classList.remove('text-slate-300', 'hover:text-white', 'hover:bg-slate-800');
                 activeBtn.classList.add('bg-blue-600', 'text-white', 'shadow-md');
             }
 
