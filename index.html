@@ -49,23 +49,26 @@
                 </div>
             </div>
             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                <span class="w-2 h-2 ml-1 bg-emerald-500 rounded-full animate-pulse"></span> آنلاین
+                <span class="w-2 h-2 ml-1 bg-emerald-500 rounded-full animate-pulse"></span> آنلاین 🟢
             </span>
         </div>
     </header>
 
-    <nav class="bg-cardBg/80 border-b border-slate-800 px-4 py-3">
-        <div class="max-w-3xl mx-auto flex justify-center gap-2 flex-wrap">
-            <button onclick="switchTab('home')" id="btn-home" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-md smooth-transition flex items-center gap-1.5">
-                <i data-lucide="home" class="w-4 h-4"></i> خانه و محاسبه‌گر 🏠
+    <nav class="bg-cardBg/80 border-b border-slate-800 px-4 py-3 overflow-x-auto">
+        <div class="max-w-3xl mx-auto flex justify-start sm:justify-center gap-2 flex-nowrap sm:flex-wrap min-w-max">
+            <button onclick="switchTab('home')" id="btn-home" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-md smooth-transition flex items-center gap-1.5 whitespace-nowrap">
+                <i data-lucide="calculator" class="w-4 h-4"></i> ماشین‌حساب سرور 🧮
             </button>
-            <button onclick="switchTab('builder')" id="btn-builder" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center gap-1.5">
-                <i data-lucide="bot" class="w-4 h-4"></i> ساخت ربات و بازی 🤖
+            <button onclick="switchTab('bot')" id="btn-bot" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center gap-1.5 whitespace-nowrap">
+                <i data-lucide="bot" class="w-4 h-4"></i> ساخت ربات 🤖
             </button>
-            <button onclick="switchTab('pricing')" id="btn-pricing" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center gap-1.5">
-                <i data-lucide="credit-card" class="w-4 h-4"></i> تعرفه و درگاه امن 💳
+            <button onclick="switchTab('app')" id="btn-app" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center gap-1.5 whitespace-nowrap">
+                <i data-lucide="smartphone" class="w-4 h-4"></i> ساخت اپلیکیشن 📱
             </button>
-            <button onclick="switchTab('support')" id="btn-support" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center gap-1.5">
+            <button onclick="switchTab('game')" id="btn-game" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center gap-1.5 whitespace-nowrap">
+                <i data-lucide="gamepad-2" class="w-4 h-4"></i> ساخت بازی 🎮
+            </button>
+            <button onclick="switchTab('support')" id="btn-support" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 smooth-transition flex items-center gap-1.5 whitespace-nowrap">
                 <i data-lucide="headset" class="w-4 h-4"></i> چت پشتیبانی 💬
             </button>
         </div>
@@ -73,22 +76,16 @@
 
     <main class="max-w-3xl mx-auto p-4 flex-grow w-full space-y-6">
 
-        <!-- 1. HOME / CALCULATOR SECTION (Two-section layout: Top & Bottom) -->
+        <!-- 1. SERVER CALCULATOR SECTION -->
         <section id="tab-home" class="space-y-6">
-            <!-- Top Hero Card -->
             <div class="bg-gradient-to-r from-blue-900/40 to-slate-900 border border-blue-500/20 rounded-2xl p-6 shadow-xl relative overflow-hidden">
-                <h2 class="text-xl font-bold text-white mb-2">سیستم هوشمند ابری کلودبات 🚀</h2>
+                <h2 class="text-xl font-bold text-white mb-2">ماشین‌حساب هوشمند ابری 🚀</h2>
                 <p class="text-xs text-slate-300 leading-relaxed">
-                    با استفاده از ماشین‌حساب زیر، مشخصات سرور خود را انتخاب کنید تا قیمت دقیق از پارس‌پک محاسبه شده و سود خدمات به‌صورت خودکار اعمال گردد.
+                    مشخصات سرور خود را انتخاب کنید تا قیمت دقیق از پارس‌پک استخراج شده و سود خدمات به‌صورت خودکار اعمال گردد. 💡
                 </p>
             </div>
 
-            <!-- Bottom Calculator Card -->
             <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
-                <h3 class="text-base font-bold text-white flex items-center gap-2">
-                    <i data-lucide="calculator" class="w-5 h-5 text-emerald-400"></i> ماشین‌حساب قیمت سرور ابری 🧮
-                </h3>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                     <div>
                         <label class="block font-medium text-slate-300 mb-2">انتخاب رم سرور (RAM):</label>
@@ -117,7 +114,7 @@
 
                 <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-3 text-xs">
                     <div class="flex justify-between items-center text-slate-400">
-                        <span>هزینه پایه پارس‌پک:</span>
+                        <span>هزینه پایه سرور:</span>
                         <span id="calc-base-price" class="font-mono text-white">۰ تومان</span>
                     </div>
                     <div class="flex justify-between items-center text-slate-400">
@@ -135,93 +132,87 @@
                 </div>
 
                 <button onclick="orderCalculatedServer()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl shadow-lg smooth-transition flex items-center justify-center text-xs">
-                    <i data-lucide="shopping-cart" class="w-4 h-4 ml-2"></i> ثبت سفارش و انتقال به درگاه پرداخت امن 🔒
+                    <i data-lucide="shopping-cart" class="w-4 h-4 ml-2"></i> ثبت سفارش و پرداخت درگاه امن 🔒
                 </button>
             </div>
         </section>
 
-        <!-- 2. BOT & GAME BUILDER SECTION -->
-        <section id="tab-builder" class="hidden space-y-6">
-            <!-- Bot Builder Card -->
+        <!-- 2. BOT BUILDER SECTION (199,000 Toman) -->
+        <section id="tab-bot" class="hidden space-y-6">
             <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-                <h3 class="text-base font-bold text-white flex items-center gap-2">
-                    <i data-lucide="bot" class="w-5 h-5 text-blue-500"></i> ساخت و راه‌اندازی ربات ابری 🤖
-                </h3>
+                <div class="flex justify-between items-center">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i data-lucide="bot" class="w-5 h-5 text-blue-500"></i> ساخت و راه‌اندازی ربات تلگرام 🤖
+                    </h3>
+                    <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-xs font-bold font-mono">۱۹۹,۰۰۰ تومان 💳</span>
+                </div>
                 <div class="space-y-3 text-xs">
                     <div>
                         <label class="block font-medium text-slate-300 mb-1">نام سرویس ربات</label>
                         <input type="text" id="bot-name" placeholder="مثلاً ربات پشتیبان" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500">
                     </div>
                     <div>
-                        <label class="block font-medium text-slate-300 mb-1">توکن دسترسی ربات:</label>
+                        <label class="block font-medium text-slate-300 mb-1">توکن دسترسی ربات (Token):</label>
                         <input type="text" id="bot-token" placeholder="مثلاً 123456789:ABCDefGhIJKlmNoPQRsTUVwxyZ" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono focus:outline-none focus:border-blue-500">
-                        <p class="text-[10px] text-amber-400 mt-1">💡 راهنما: توکن ربات خود را از ربات رسمی تلگرام یعنی <b class="font-mono">@BotFather</b> دریافت کنید.</p>
+                        <p class="text-[10px] text-amber-400 mt-1">💡 راهنما: توکن ربات خود را با مراجعه به ربات رسمی تلگرام یعنی <b class="font-mono">@BotFather</b> دریافت کنید و اینجا وارد نمایید.</p>
                     </div>
-                    <button onclick="saveBot()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl shadow-lg smooth-transition flex items-center justify-center">
-                        <i data-lucide="plus-circle" class="w-4 h-4 ml-2"></i> ثبت و راه‌اندازی ربات 🚀
+                    <button onclick="orderBotPayment()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl shadow-lg smooth-transition flex items-center justify-center">
+                        <i data-lucide="credit-card" class="w-4 h-4 ml-2"></i> ثبت و پرداخت هزینه ساخت ربات (۱۹۹,۰۰۰ تومان) 🚀
                     </button>
                 </div>
-                <div id="bot-success-msg" class="hidden p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-xs">
-                    ربات شما با موفقیت در بستر ابری ثبت شد! ✨
-                </div>
             </div>
+        </section>
 
-            <!-- Game & App Builder Card -->
+        <!-- 3. APP BUILDER SECTION (599,000 Toman) -->
+        <section id="tab-app" class="hidden space-y-6">
             <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-                <h3 class="text-base font-bold text-white flex items-center gap-2">
-                    <i data-lucide="gamepad-2" class="w-5 h-5 text-emerald-400"></i> ساخت مینی‌بازی و اپلیکیشن ابری ⚡
-                </h3>
-                <p class="text-xs text-slate-400">قالب مورد نظر را انتخاب کنید تا با سرعت نور آماده شود.</p>
-                <div class="grid grid-cols-2 gap-3 text-xs">
-                    <div onclick="selectAppTemplate('game')" id="tpl-game" class="cursor-pointer border border-emerald-500 bg-slate-900 p-3 rounded-xl text-center">
-                        <div class="font-bold text-white mb-1">مینی‌بازی امتیازی 🎮</div>
-                        <span class="text-[10px] text-slate-400">سرگرم‌کننده و سریع</span>
-                    </div>
-                    <div onclick="selectAppTemplate('app')" id="tpl-app" class="cursor-pointer border border-slate-700 bg-slate-900 p-3 rounded-xl text-center">
-                        <div class="font-bold text-white mb-1">اپلیکیشن خدماتی 📱</div>
-                        <span class="text-[10px] text-slate-400">پنل ابزارهای کاربردی</span>
-                    </div>
+                <div class="flex justify-between items-center">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i data-lucide="smartphone" class="w-5 h-5 text-emerald-400"></i> ساخت اپلیکیشن خدماتی ابری 📱
+                    </h3>
+                    <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-xs font-bold font-mono">۵۹۹,۰۰۰ تومان 💳</span>
                 </div>
                 <div class="space-y-3 text-xs">
-                    <input type="text" id="app-title-input" placeholder="عنوان برنامه یا بازی..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500">
-                    <button onclick="buildAppCode()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl shadow-lg smooth-transition flex items-center justify-center">
-                        <i data-lucide="zap" class="w-4 h-4 ml-2"></i> تولید و ساخت برنامه 🚀
+                    <div>
+                        <label class="block font-medium text-slate-300 mb-1">عنوان اپلیکیشن خدماتی:</label>
+                        <input type="text" id="app-title-input" placeholder="مثلاً اپلیکیشن مدیریت فروش" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <button onclick="orderAppPayment()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl shadow-lg smooth-transition flex items-center justify-center">
+                        <i data-lucide="credit-card" class="w-4 h-4 ml-2"></i> ثبت و پرداخت هزینه اپلیکیشن (۵۹۹,۰۰۰ تومان) ⚡
                     </button>
                 </div>
-                <div id="app-result-box" class="hidden p-3 bg-slate-900 border border-slate-700 rounded-xl text-xs text-emerald-400 font-mono"></div>
             </div>
         </section>
 
-        <!-- 3. PRICING SECTION -->
-        <section id="tab-pricing" class="hidden space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-cardBg border border-slate-800 p-6 rounded-2xl shadow-xl flex flex-col justify-between text-xs">
-                    <div>
-                        <span class="bg-blue-500/10 text-blue-400 px-3 py-1 rounded-full font-semibold">اشتراک ماهانه</span>
-                        <div class="text-xl font-bold text-white mt-3">۹۹,۰۰۰ تومان</div>
-                        <p class="text-slate-400 my-2">دسترسی کامل به موتور هوشمند ابری.</p>
-                    </div>
-                    <button onclick="openBankGateway('اشتراک ماهانه', '۹۹,۰۰۰ تومان')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl mt-4">پرداخت امن بانکی 🔒</button>
+        <!-- 4. GAME BUILDER SECTION (999,000 Toman) -->
+        <section id="tab-game" class="hidden space-y-6">
+            <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i data-lucide="gamepad-2" class="w-5 h-5 text-purple-400"></i> ساخت مینی‌بازی و سرگرمی ابری 🎮
+                    </h3>
+                    <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-xs font-bold font-mono">۹۹۹,۰۰۰ تومان 💳</span>
                 </div>
-                <div class="bg-cardBg border border-blue-500/50 p-6 rounded-2xl shadow-xl flex flex-col justify-between text-xs">
+                <div class="space-y-3 text-xs">
                     <div>
-                        <span class="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full font-semibold">اشتراک دائمی VIP</span>
-                        <div class="text-xl font-bold text-emerald-400 mt-3">۱۹۹,۰۰۰ تومان</div>
-                        <p class="text-slate-400 my-2">دسترسی مادام‌العمر و پشتیبانی ویژه.</p>
+                        <label class="block font-medium text-slate-300 mb-1">عنوان مینی‌بازی:</label>
+                        <input type="text" id="game-title-input" placeholder="مثلاً بازی کلیکی پول‌ساز" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500">
                     </div>
-                    <button onclick="openBankGateway('اشتراک دائمی VIP', '۱۹۹,۰۰۰ تومان')" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl mt-4">پرداخت امن بانکی 🔒</button>
+                    <button onclick="orderGamePayment()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-xl shadow-lg smooth-transition flex items-center justify-center">
+                        <i data-lucide="credit-card" class="w-4 h-4 ml-2"></i> ثبت و پرداخت هزینه مینی‌بازی (۹۹۹,۰۰۰ تومان) ⚡
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- 4. SUPPORT CHAT SECTION -->
+        <!-- 5. SUPPORT CHAT SECTION -->
         <section id="tab-support" class="hidden space-y-4">
             <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <h3 class="text-base font-bold text-white flex items-center gap-2">
                     <i data-lucide="headset" class="w-5 h-5 text-amber-500"></i> چت آنلاین با پشتیبانی 💬
                 </h3>
                 <div id="chat-messages" class="h-44 bg-slate-900 border border-slate-800 rounded-xl p-3 overflow-y-auto space-y-2 text-xs">
-                    <div class="p-2.5 bg-slate-800 rounded-xl text-slate-300 w-fit">سلام! چطور کمکتان کنیم؟ 😊</div>
+                    <div class="p-2.5 bg-slate-800 rounded-xl text-slate-300 w-fit">سلام! چطور می‌توانیم کمکتان کنیم؟ 😊</div>
                 </div>
                 <div class="flex gap-2 text-xs">
                     <input type="text" id="chat-input" placeholder="پیام خود را بنویسید..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none">
@@ -230,16 +221,16 @@
             </div>
         </section>
 
-        <!-- 5. PROTECTED ADMIN PANEL SECTION (Hidden from public) -->
+        <!-- 6. PROTECTED ADMIN PANEL SECTION (PIN: alireza) -->
         <section id="tab-admin" class="hidden space-y-4">
             <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                     <h3 class="text-base font-bold text-white flex items-center gap-2">
-                        <i data-lucide="shield-check" class="w-5 h-5 text-emerald-500"></i> پنل مدیریت اختصاصی 🛡️
+                        <i data-lucide="shield-check" class="w-5 h-5 text-emerald-500"></i> پنل مدیریت اختصاصی علیرضا 🛡️
                     </h3>
-                    <button onclick="switchTab('home')" class="text-xs bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg">خروج از ادمین 🚪</button>
+                    <button onclick="switchTab('home')" class="text-xs bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg">خروج 🚪</button>
                 </div>
-                <p class="text-xs text-slate-400">تمام سفارش‌ها، فیش‌های واریزی و مشخصات کامل خریدها در اینجا ذخیره شده‌اند.</p>
+                <p class="text-xs text-slate-400">تمام سفارش‌ها، فیش‌های واریزی و جزئیات کامل خریدها در اینجا ذخیره شده‌اند. 📋</p>
                 <div id="admin-receipts-list" class="space-y-3 text-xs">
                     <!-- Loaded dynamically -->
                 </div>
@@ -248,11 +239,11 @@
 
     </main>
 
-    <!-- Bank Gateway Modal (Alireza Norouzi Card: 6219861858158784) -->
+    <!-- Bank Gateway Modal (Card: 6219861858158784 - Alireza Norouzi) -->
     <div id="bank-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl p-6 space-y-4 text-xs shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <span class="font-bold text-sm text-white">درگاه پرداخت کارت به کارت امن</span>
+                <span class="font-bold text-sm text-white">درگاه پرداخت کارت به کارت امن 🔒</span>
                 <button onclick="closeBankGateway()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
             <div class="bg-blue-900/20 border border-blue-500/20 p-3 rounded-xl flex justify-between items-center">
@@ -263,7 +254,7 @@
                 <div id="gateway-plan-title" class="text-slate-300 font-medium">سرویس</div>
             </div>
             <div class="bg-slate-950 border border-emerald-500/30 p-4 rounded-xl space-y-2">
-                <div class="text-slate-400">مبلغ را به شماره کارت زیر واریز کنید:</div>
+                <div class="text-slate-400">مبلغ را به شماره کارت زیر واریز فرمایید:</div>
                 <div class="bg-slate-900 p-3 rounded-lg font-mono text-emerald-400 font-bold text-sm text-center tracking-wider">6219 8618 5815 8784</div>
                 <div class="text-slate-300 text-center">به نام: <span class="text-white font-bold">علیرضا نوروزی</span></div>
             </div>
@@ -278,13 +269,13 @@
         </div>
     </div>
 
-    <!-- Admin PIN Modal (Secret Entry) -->
+    <!-- Admin PIN Modal (Password: alireza) -->
     <div id="admin-pin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-700 w-full max-w-xs rounded-2xl p-5 space-y-4 text-center text-xs shadow-2xl">
             <div class="w-10 h-10 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto">
                 <i data-lucide="shield-check" class="w-5 h-5"></i>
             </div>
-            <div class="font-bold text-white text-sm">ورود به بخش مدیریت</div>
+            <div class="font-bold text-white text-sm">ورود به بخش مدیریت علیرضا</div>
             <p class="text-slate-400">رمز عبور ادمین را وارد کنید:</p>
             <input type="password" id="admin-pin-input" placeholder="رمز عبور..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-center font-mono">
             <div class="flex gap-2">
@@ -302,11 +293,10 @@
         </div>
     </div>
 
-    <!-- Footer with Hidden Admin Trigger -->
     <footer class="bg-cardBg/50 border-t border-slate-800 py-3 px-4 text-center text-[11px] text-slate-500 flex justify-between items-center max-w-3xl mx-auto w-full">
         <span>کلودبات - بستر امن ابری و ماشین‌حساب 🛡️</span>
         <button onclick="openAdminPinModal()" class="text-slate-600 hover:text-slate-400 text-[10px] flex items-center gap-1">
-            <i data-lucide="lock" class="w-3 h-3"></i> ادمین
+            <i data-lucide="lock" class="w-3 h-3"></i> ادمین 🔑
         </button>
     </footer>
 
@@ -347,6 +337,7 @@
                 const storage = parseInt(document.getElementById('calc-storage').value) || 0;
                 const base = ram + storage;
 
+                // Automatic profit algorithm: 500k for under 1M, 1M for over 1M
                 let fee = base < 1000000 ? 500000 : 1000000;
                 let final = base + fee;
                 let disc = 0;
@@ -394,8 +385,39 @@
             const finalPrice = document.getElementById('calc-final-price').innerText;
             const ramText = document.getElementById('calc-ram').selectedOptions[0].text;
             const storageText = document.getElementById('calc-storage').selectedOptions[0].text;
-            serverDetailsMemo = `مشخصات: ${ramText} | ${storageText}`;
-            openBankGateway('سرور سفارشی (' + serverDetailsMemo + ')', finalPrice);
+            serverDetailsMemo = `مشخصات سرور: ${ramText} | ${storageText}`;
+            openBankGateway('سرور سفارشی ابری', finalPrice);
+        }
+
+        function orderBotPayment() {
+            const name = document.getElementById('bot-name').value.trim();
+            const token = document.getElementById('bot-token').value.trim();
+            if(!name || !token) {
+                showCustomAlert('لطفاً نام و توکن ربات را به طور کامل وارد کنید. ⚠️');
+                return;
+            }
+            serverDetailsMemo = `نام ربات: ${name} | توکن: ${token}`;
+            openBankGateway('ساخت ربات تلگرام', '۱۹۹,۰۰۰ تومان');
+        }
+
+        function orderAppPayment() {
+            const title = document.getElementById('app-title-input').value.trim();
+            if(!title) {
+                showCustomAlert('لطفاً عنوان اپلیکیشن خدماتی را وارد کنید. ⚠️');
+                return;
+            }
+            serverDetailsMemo = `نوع: اپلیکیشن خدماتی | عنوان: ${title}`;
+            openBankGateway('ساخت اپلیکیشن خدماتی ابری', '۵۹۹,۰۰۰ تومان');
+        }
+
+        function orderGamePayment() {
+            const title = document.getElementById('game-title-input').value.trim();
+            if(!title) {
+                showCustomAlert('لطفاً عنوان مینی‌بازی را وارد کنید. ⚠️');
+                return;
+            }
+            serverDetailsMemo = `نوع: مینی‌بازی | عنوان: ${title}`;
+            openBankGateway('ساخت مینی‌بازی و سرگرمی ابری', '۹۹۹,۰۰۰ تومان');
         }
 
         function getStored(key) {
@@ -403,39 +425,6 @@
         }
         function setStored(key, data) {
             localStorage.setItem(key, JSON.stringify(data));
-        }
-
-        function saveBot() {
-            const name = document.getElementById('bot-name').value.trim();
-            const token = document.getElementById('bot-token').value.trim();
-            if(!name || !token) {
-                showCustomAlert('لطفاً نام و توکن ربات را کامل وارد کنید. ⚠️');
-                return;
-            }
-            const bots = getStored('cloud_bots');
-            bots.push({ name, token, date: new Date().toLocaleDateString('fa-IR') });
-            setStored('cloud_bots', bots);
-            document.getElementById('bot-success-msg').classList.remove('hidden');
-            document.getElementById('bot-name').value = '';
-            document.getElementById('bot-token').value = '';
-            setTimeout(() => document.getElementById('bot-success-msg').classList.add('hidden'), 4000);
-        }
-
-        let selectedAppType = 'game';
-        function selectAppTemplate(type) {
-            selectedAppType = type;
-            document.getElementById('tpl-game').style.borderColor = type === 'game' ? '#10b981' : '#334155';
-            document.getElementById('tpl-app').style.borderColor = type === 'app' ? '#3b82f6' : '#334155';
-        }
-
-        function buildAppCode() {
-            const title = document.getElementById('app-title-input').value.trim() || 'برنامه من';
-            const apps = getStored('cloud_apps');
-            apps.push({ title, type: selectedAppType, date: new Date().toLocaleDateString('fa-IR') });
-            setStored('cloud_apps', apps);
-            const res = document.getElementById('app-result-box');
-            res.classList.remove('hidden');
-            res.innerText = `[موفقیت] برنامه "${title}" با موفقیت ساخته شد! 🚀`;
         }
 
         function openBankGateway(plan, price) {
@@ -464,12 +453,12 @@
                 price: currentPlanPrice,
                 name: name,
                 code: 'TXN-' + code,
-                details: serverDetailsMemo || 'خرید اشتراک / سرویس ابری',
+                details: serverDetailsMemo || 'خرید سرویس ابری',
                 date: new Date().toLocaleDateString('fa-IR')
             });
             setStored('cloud_receipts', receipts);
             closeBankGateway();
-            showCustomAlert('فیش شما ثبت شد و با تمام جزئیات به پنل مدیریت ارسال گردید! 🎉✅');
+            showCustomAlert('فیش شما با موفقیت ثبت شد و به پنل مدیریت علیرضا ارسال گردید! 🎉✅');
         }
 
         function openAdminPinModal() {
@@ -481,7 +470,7 @@
         }
         function verifyAdminPin() {
             const pin = document.getElementById('admin-pin-input').value.trim();
-            if(pin === '1384' || pin === '1234') { // Admin password
+            if(pin === 'alireza') {
                 closeAdminPinModal();
                 document.getElementById('tab-admin').classList.remove('hidden');
                 switchTab('admin');
@@ -502,11 +491,11 @@
                 html += `
                     <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl space-y-2">
                         <div class="flex justify-between items-center font-bold text-white">
-                            <span>#${idx+1} - نام: ${item.name}</span>
+                            <span>#${idx+1} - نام خریدار: ${item.name}</span>
                             <span class="text-emerald-400 font-mono">${item.price}</span>
                         </div>
                         <div class="text-slate-300">سرویس: <b class="text-white">${item.plan}</b></div>
-                        <div class="text-slate-400 text-[11px]">جزئیات: ${item.details || 'ندارد'}</div>
+                        <div class="text-slate-400 text-[11px] bg-slate-950 p-2 rounded-lg font-mono">جزئیات کامل: ${item.details}</div>
                         <div class="flex justify-between items-center pt-2 border-t border-slate-800 text-[11px] text-slate-400">
                             <span>کد پیگیری: <strong class="text-amber-400 font-mono">${item.code}</strong></span>
                             <span>تاریخ: ${item.date}</span>
